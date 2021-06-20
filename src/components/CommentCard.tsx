@@ -1,0 +1,48 @@
+import { BsClockHistory } from "react-icons/bs";
+import { FunctionComponent } from "react";
+import { FComment } from "libs/types";
+import { useRouter } from "next/router";
+import timeSince from "libs/timeSince";
+import Image from "next/image";
+const CommentCard: FunctionComponent<{ data: FComment }> = ({
+  data: {
+    date,
+    content,
+    user: { name, username, profilePicture },
+    _id,
+    clientOnly,
+  },
+}) => {
+  const { push } = useRouter();
+
+  return (
+    <div className="flex p-2 space-x-3 ">
+      <Image
+        src={profilePicture}
+        alt=""
+        width={40}
+        height={40}
+        layout="fixed"
+        quality={100}
+        className="rounded-full cursor-pointer"
+        onClick={() => push(`/user/${username}`)}
+      />
+      <div className="flex-col w-full p-3 px-4 space-y-3 rounded-md shadow-sm cursor-pointer bg-dark-600">
+        {/* top */}
+        <div className="flex items-center">
+          <span className="text-white">{name}</span>
+          <span className="ml-2 text-gray-400 cursor-pointer hover:text-blue-700">@{username}</span>
+          {clientOnly && (
+            <span className="w-3 h-3 ml-3 bg-blue-700 rounded-full animate-pulse"></span>
+          )}
+          <div className="flex items-center ml-auto space-x-2">
+            <BsClockHistory size="14" /> {!clientOnly && <span>{timeSince(new Date(date))}</span>}
+          </div>
+        </div>
+        <div>{content}</div>
+      </div>
+    </div>
+  );
+};
+
+export default CommentCard;
