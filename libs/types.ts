@@ -1,80 +1,49 @@
-import mongoose from "mongoose";
-
-type mongoose_id = string | mongoose.Types.ObjectId;
 export interface User {
-  _id: mongoose_id;
+  _id: string;
   name: string;
   username: string;
   password: string;
   profilePicture: string;
   bio: string;
-  following: mongoose_id[];
-  followers: mongoose_id[];
+  // likes: string[]; // TODO FIX THIS
+  following: string[];
+  followers: string[];
   // virtual fields
   noOfFollowers: number;
   noOfFollowing: number;
-  posts: mongoose_id[];
-  noOfPosts: number;
+  posts: string[];
+  noOPosts: number;
 }
 
-export interface FUser extends Omit<User, "_id"> {
-  _id: string;
-}
-export interface FPost extends Omit<Post, "_id" | "user" | "likes" | "tags" | "comments"> {
-  _id: string;
-  user: FUser;
-  likes?: [string];
-  tags: FTag[];
-  comments?: FComment[];
-  clientOnly?: boolean; // for optimistic UI
-}
-export interface FTag extends Omit<Tag, "_id" | "posts"> {
-  _id: string;
-  posts: FPost[];
-}
-// frontend backend different interface
 export interface Post {
-  _id?: mongoose_id;
-  user: mongoose_id;
   cloudinaryImageId?: string;
   content: string;
   attachmentURL?: string;
   createdAt?: Date;
-  likes?: [
-    {
-      user: mongoose.Types.ObjectId | string;
-    }
-  ];
+  _id: string;
+  user: User;
+  likes?: [string];
+  tags: Tag[];
   comments?: Comment[];
-  tags?: [
-    {
-      tag: mongoose.Types.ObjectId;
-    }
-  ];
+  clientOnly?: boolean; // for optimistic UI
 }
 export interface Comment {
-  user: mongoose.Types.ObjectId;
+  user: User;
   content: string;
-  date?: Date;
   _id?: string;
-}
-export interface FComment {
-  user: FUser;
-  content: string;
-  date?: Date;
-  _id: string;
   clientOnly?: boolean;
+  date?: Date;
 }
 
 export interface Tag {
-  _id?: mongoose.Types.ObjectId;
+  posts: Post[];
+  _id?: string;
   name: string;
-  posts: [Post];
   length?: number;
 }
 
-export interface FPaginatedPosts {
-  posts: FPost[];
+export interface PaginatedPosts {
+  posts: Post[];
   pages: number;
   page: number;
 }

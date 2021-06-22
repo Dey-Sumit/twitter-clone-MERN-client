@@ -1,10 +1,10 @@
 import axios from "axios";
 import { ChangeEvent, FunctionComponent, useState } from "react";
-import { useAuthState } from "context/auth.context";
+import { useAuthState } from "@context/auth.context";
 import { MdCancel } from "react-icons/md";
 import { BiImageAdd } from "react-icons/bi";
-import { FPost } from "libs/types";
-import { usePaginatedPosts } from "libs/hooks";
+import { Post } from "@libs/types";
+import { usePaginatedPosts } from "@libs/hooks";
 import Image from "next/image";
 import { mutate } from "swr";
 
@@ -25,7 +25,7 @@ const CreateTweet: FunctionComponent<{}> = () => {
     if (!content) return;
 
     // Optimistic UI
-    const FAKE_POST: FPost = {
+    const FAKE_POST: Post = {
       _id: Math.floor(Math.random()).toString(),
       content,
       tags: [], // refactor we don't need tags in frontend anymore

@@ -1,16 +1,16 @@
 import axios from "axios";
 import React, { createContext, useContext, useEffect, useReducer } from "react";
-import { FUser } from "libs/types";
+import { User } from "@libs/types";
 
 import Cookies from "js-cookie";
 interface IState {
-  user: FUser;
+  user: User;
   loading?: boolean; // might be needed later
 }
 
 interface IAction {
   type: "REMOVE_USER" | "SET_USER" | "STOP_LOADING";
-  payload?: FUser;
+  payload?: User;
 }
 // create two context; one for the state and one for the dispatch
 const StateContext = createContext<IState>(undefined); //create context default value only useful for testing
@@ -64,6 +64,7 @@ export const AuthProvider = ({ children }) => {
         Cookies.set("user", res.data);
       } catch (error) {
         console.log(error.message);
+        Cookies.remove("user");
         dispatch({
           type: "REMOVE_USER",
         });

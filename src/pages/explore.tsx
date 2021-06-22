@@ -1,5 +1,5 @@
-import People from "components/People";
-import Trends from "components/Trends";
+import People from "@components/People";
+import Trends from "@components/Trends";
 
 const Explore = () => {
   return (

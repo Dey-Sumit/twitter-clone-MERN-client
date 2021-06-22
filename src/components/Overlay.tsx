@@ -1,4 +1,4 @@
-import { useLayoutDispatch } from "context/layout.context";
+import { useLayoutDispatch } from "@context/layout.context";
 
 const Overlay = () => {
   const dispatch = useLayoutDispatch();

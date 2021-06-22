@@ -26,8 +26,5 @@ function timeSince(date: Date): string {
   }
   return Math.floor(seconds) + " s";
 }
-//   var aDay = 24*60*60*1000;
-//   console.log(timeSince(new Date(Date.now()-aDay*2)));
-//   console.log(timeSince(new Date(Date.now()-aDay)));
 
 export default timeSince;

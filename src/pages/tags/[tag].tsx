@@ -1,14 +1,14 @@
 import axios from "axios";
 import { GetServerSidePropsContext, NextPage } from "next";
 import Head from "next/head";
-import Trends from "components/Trends";
-import TweetCard from "components/TweetCard";
-import { FPost } from "libs/types";
+import Trends from "@components/Trends";
+import TweetCard from "@components/TweetCard";
+import { Post } from "@libs/types";
 import useSWR from "swr";
 import { useRouter } from "next/router";
-import Loader from "components/Loader";
+import Loader from "@components/Loader";
 interface IData {
-  posts: FPost[];
+  posts: Post[];
   name: string;
 }
 const index = () => {

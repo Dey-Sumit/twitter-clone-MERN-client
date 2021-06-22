@@ -2,11 +2,12 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { BiSearchAlt } from "react-icons/bi";
-import { useAuthState } from "../context/auth.context";
-import { FUser } from "libs/types";
+import { useAuthState } from "@context/auth.context";
+import { User } from "@libs/types";
+import Loader from "@components/Loader";
+
 import { SiTwitter } from "react-icons/si";
-import { useLayoutDispatch, useLayoutState } from "src/context/layout.context";
-import Loader from "./Loader";
+import { useLayoutDispatch, useLayoutState } from "@context/layout.context";
 import Image from "next/image";
 
 const Navbar = () => {
@@ -18,7 +19,7 @@ const Navbar = () => {
   const [query, setQuery] = useState("");
   const [timer, setTimer] = useState(null);
   const [loading, setLoading] = useState(null);
-  const [searchResults, setSearchResults] = useState<FUser[]>([]);
+  const [searchResults, setSearchResults] = useState<User[]>([]);
 
   const goToUser = (uid: string) => {
     setQuery("");
@@ -45,7 +46,6 @@ const Navbar = () => {
             },
           });
           setSearchResults(data.users);
-          // console.log(data);
         } catch (err) {
           console.log(err);
         } finally {
@@ -79,7 +79,7 @@ const Navbar = () => {
         >
           <div className="mt-2">{loading && <Loader />}</div>
           {!loading &&
-            searchResults?.map((user: FUser) => (
+            searchResults?.map((user: User) => (
               <div
                 className="flex items-center px-4 py-1 space-x-6 cursor-pointer bg-dark-700"
                 onClick={() => goToUser(user._id)}

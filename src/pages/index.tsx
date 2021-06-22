@@ -1,15 +1,15 @@
-import TweetCard from "../components/TweetCard";
-import Trends from "../components/Trends";
+import TweetCard from "@components/TweetCard";
+import Trends from "@components/Trends";
+import People from "@components/People";
+import CreateTweet from "@components/CreateTweet";
+import Loader from "@components/Loader";
+import { useAuthState } from "@context/auth.context";
+import { usePaginatedPosts } from "@libs/hooks";
+
 import { useRouter } from "next/router";
 import React from "react";
-import People from "components/People";
-import Loader from "components/Loader";
 import InfiniteScroll from "react-infinite-scroll-component";
-import CreateTweet from "components/CreateTweet";
-import { useAuthState } from "context/auth.context";
-import { FPaginatedPosts } from "libs/types";
-import { usePaginatedPosts } from "libs/hooks";
-// TODO error
+
 
 export default function Home() {
   const { push } = useRouter();

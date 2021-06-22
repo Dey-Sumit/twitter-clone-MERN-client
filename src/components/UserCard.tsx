@@ -1,13 +1,13 @@
 import axios from "axios";
-import { useAuthState } from "context/auth.context";
-import { FUser } from "libs/types";
+import { useAuthState } from "@context/auth.context";
+import { User } from "@libs/types";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { FunctionComponent, MouseEvent, useEffect, useState } from "react";
 import { mutate } from "swr";
 
 const UserCard: FunctionComponent<{
-  user: FUser;
+  user: User;
   showFollowButton: Boolean;
 }> = ({ user, showFollowButton = true }) => {
   const { user: authUser } = useAuthState();

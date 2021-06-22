@@ -1,18 +1,19 @@
 import { useRouter } from "next/router";
 import useSWR from "swr";
-import TweetCard from "components/TweetCard";
-import Loader from "components/Loader";
-import { usePaginatedPosts } from "libs/hooks";
 import InfiniteScroll from "react-infinite-scroll-component";
-import UserCard from "components/UserCard";
 import { useRef, useState } from "react";
-import { FUser } from "libs/types";
-import ProfileCard from "components/ProfileCard";
-import Error from "components/Error";
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from "next";
 import axios from "axios";
-import { useAuthState } from "context/auth.context";
-import { useLayoutDispatch } from "context/layout.context";
+
+import TweetCard from "@components/TweetCard";
+import Loader from "@components/Loader";
+import { usePaginatedPosts } from "@libs/hooks";
+import { User } from "@libs/types";
+import UserCard from "@components/UserCard";
+import ProfileCard from "@components/ProfileCard";
+import Error from "@components/Error";
+import { useAuthState } from "@context/auth.context";
+import { useLayoutDispatch } from "@context/layout.context";
 
 const profile = (props) => {
   console.log({ props });
@@ -28,7 +29,7 @@ const profile = (props) => {
   // if (isFallback) {
   // }
   // console.log({ profileData, isFallback });
-  // const { data: profileData, error: profileDataError } = useSWR<FUser>(
+  // const { data: profileData, error: profileDataError } = useSWR<User>(
   //   uid ? `/api/users/${uid}` : null
   // );
 
@@ -53,11 +54,11 @@ const profile = (props) => {
     isReachingEnd,
   } = usePaginatedPosts(`/api/posts?uid=${uid}`);
 
-  const { data: following, error: getFollowingsError } = useSWR<FUser[]>(
+  const { data: following, error: getFollowingsError } = useSWR<User[]>(
     uid ? `/api/users/${uid}/following` : null
   );
 
-  const { data: followers, error: getFollowersError } = useSWR<FUser[]>(
+  const { data: followers, error: getFollowersError } = useSWR<User[]>(
     uid ? `/api/users/${uid}/followers` : null
   );
 

@@ -1,4 +1,4 @@
-import { FTag } from "libs/types";
+import { FTag } from "@libs/types";
 import { useRouter } from "next/router";
 import { FunctionComponent } from "react";
 

@@ -2,7 +2,7 @@ import axios from "axios";
 import { FunctionComponent, useState } from "react";
 import { mutate } from "swr";
 import { useAuthState } from "../context/auth.context";
-import { FComment } from "libs/types";
+import { FComment } from "@libs/types";
 import Image from "next/image";
 const CreateComment: FunctionComponent<{
   tid: string;

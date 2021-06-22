@@ -1,5 +1,5 @@
 import { useSWRInfinite } from "swr";
-import { FPaginatedPosts, FPost } from "./types";
+import { FPaginatedPosts, Post } from "./types";
 
 export const usePaginatedPosts = (URL: string) => {
   const {
@@ -19,7 +19,7 @@ export const usePaginatedPosts = (URL: string) => {
   // /api/feed?uid = dsakdl?page=1
   // `/api/posts?page=${index}`
 
-  const posts: FPost[] = data
+  const posts: Post[] = data
     ? [].concat(...data.map((paginatedPost) => paginatedPost.posts))
     : [];
 

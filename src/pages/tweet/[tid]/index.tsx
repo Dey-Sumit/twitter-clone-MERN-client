@@ -1,10 +1,10 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 import useSWR from "swr";
-import { CreateComment, TweetCard, Trends, CommentCard } from "components/index";
-import { FPost } from "libs/types";
-import Loader from "components/Loader";
-import { useAuthState } from "context/auth.context";
+import { CreateComment, TweetCard, Trends, CommentCard } from "@components/index";
+import { Post } from "@libs/types";
+import Loader from "@components/Loader";
+import { useAuthState } from "@context/auth.context";
 
 const index = () => {
   const { user } = useAuthState();
@@ -12,7 +12,7 @@ const index = () => {
   const router = useRouter();
   const { push } = useRouter();
   const { tid } = router.query;
-  const { data, error } = useSWR<FPost>(tid ? `/api/posts/${tid}` : null);
+  const { data, error } = useSWR<Post>(tid ? `/api/posts/${tid}` : null);
 
   if (error) {
     return <h3>Opps Error!!!</h3>;

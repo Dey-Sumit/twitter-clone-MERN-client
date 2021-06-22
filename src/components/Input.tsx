@@ -1,5 +1,5 @@
 import { FunctionComponent } from "react";
-import { FieldValues, UseFormRegister, ValidationRule } from "react-hook-form";
+import { FieldValues, UseFormRegister } from "react-hook-form";
 
 const Input: FunctionComponent<{
   register: UseFormRegister<FieldValues>;

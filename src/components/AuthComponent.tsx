@@ -6,10 +6,10 @@ import cookie from "js-cookie";
 import { BiLoaderAlt } from "react-icons/bi";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import Input from "components/Input";
-import { useAuthDispatch } from "context/auth.context";
-import { signupSchema } from "libs/schemaValidation";
-import { loginSchema } from "libs/schemaValidation";
+import Input from "@components/Input";
+import { useAuthDispatch } from "@context/auth.context";
+import { signupSchema } from "@libs/schemaValidation";
+import { loginSchema } from "@libs/schemaValidation";
 
 const AuthComponent = () => {
   const [isLogin, setIsLogin] = useState(true);

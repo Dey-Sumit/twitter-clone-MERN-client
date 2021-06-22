@@ -6,7 +6,7 @@ import { BiLoaderAlt } from "react-icons/bi";
 import { yupResolver } from "@hookform/resolvers/yup";
 import cookie from "js-cookie";
 
-import { authSchema } from "libs/schemaValidation";
+import { authSchema } from "@libs/schemaValidation";
 import { useAuthDispatch } from "../context/auth.context";
 import Input from "./Input";
 

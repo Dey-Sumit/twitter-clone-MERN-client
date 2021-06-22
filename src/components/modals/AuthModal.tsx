@@ -1,7 +1,6 @@
-import AuthComponent from "components/AuthComponent";
-
-import { useAuthState } from "context/auth.context";
-import { useLayoutDispatch, useLayoutState } from "context/layout.context";
+import AuthComponent from "@components/AuthComponent";
+import { useAuthState } from "@context/auth.context";
+import { useLayoutDispatch, useLayoutState } from "@context/layout.context";
 import { useEffect, useState } from "react";
 
 const AuthModal = () => {

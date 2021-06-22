@@ -1,7 +1,7 @@
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
 // import NextNprogress from "nextjs-progressbar";
-import { useLayoutState } from "context/layout.context";
+import { useLayoutState } from "@context/layout.context";
 import Overlay from "./Overlay";
 import ConfirmationModal from "./modals/ConfirmationModal";
 import AuthModal from "./modals/AuthModal";

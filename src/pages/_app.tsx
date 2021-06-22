@@ -1,14 +1,17 @@
-import "styles/globals.css";
+import "@styles/globals.css";
 import axios from "axios";
 import { useRouter } from "next/router";
-import { AuthProvider } from "../context/auth.context";
+import { AuthProvider } from "@context/auth.context";
 import { SWRConfig } from "swr";
-import { LayoutProvider } from "../context/layout.context";
-import Layout from "src/components/Layout";
+import { LayoutProvider } from "@context/layout.context";
+import Layout from "@components/Layout";
 import Head from "next/head";
+
+// TODO next js progressbar
 
 axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_BASE_ENDPOINT; // the prefix of the URL only for the client side
 axios.defaults.withCredentials = true;
+
 function MyApp({ Component, pageProps }) {
   const { pathname } = useRouter();
 

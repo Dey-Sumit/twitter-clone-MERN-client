@@ -2,15 +2,14 @@ import { IoMdHome, IoMdLogOut } from "react-icons/io";
 import { MdExplore } from "react-icons/md";
 import { SiTwitter } from "react-icons/si";
 import Link from "next/link";
-import { useAuthDispatch, useAuthState } from "../context/auth.context";
+import { useAuthDispatch, useAuthState } from "@context/auth.context";
 import { useRouter } from "next/router";
 import axios from "axios";
 
 import { AiOutlineUser } from "react-icons/ai";
-import { useLayoutDispatch, useLayoutState } from "src/context/layout.context";
+import { useLayoutDispatch, useLayoutState } from "@context/layout.context";
 import { FunctionComponent, MouseEventHandler } from "react";
 import { IconType } from "react-icons";
-import ConfirmationModal from "./modals/ConfirmationModal";
 import Cookies from "js-cookie";
 
 const SidebarItem: FunctionComponent<{
@@ -20,7 +19,7 @@ const SidebarItem: FunctionComponent<{
 }> = ({ Icon, text, handler }) => {
   return (
     <div className="navItem" onClick={handler}>
-      <Icon size="25" />
+      <Icon size="25" className="flex-shrink-0" />
       <span className="hidden lg:block">{text}</span>
     </div>
   );
@@ -59,9 +58,7 @@ const Sidebar = () => {
     <>
       <div
         className={`bg-dark-700 fixed flex-col justify-between h-screen px-3 sm:px-6 py-8 pb-20 text-lg shadow-lg flex z-10 sm:sticky top-0 sm:w-40  max-w-max transform transition-all duration-300 ${
-          showNavbar
-            ? "  translate-x-0"
-            : "  -translate-x-full sm:translate-x-0"
+          showNavbar ? "  translate-x-0" : "  -translate-x-full sm:translate-x-0"
         }`}
       >
         <div className="flex items-center justify-center space-x-2 font-medium ">
@@ -82,11 +79,7 @@ const Sidebar = () => {
             layoutDispatch({ type: "TOGGLE_NAVBAR" });
           }}
         >
-          <SidebarItem
-            Icon={IoMdHome}
-            text="Home"
-            handler={() => router.push("/")}
-          />
+          <SidebarItem Icon={IoMdHome} text="Home" handler={() => router.push("/")} />
           {user && (
             <SidebarItem
               Icon={AiOutlineUser}
@@ -94,16 +87,10 @@ const Sidebar = () => {
               handler={() => router.push(`/user/${user._id}`)}
             />
           )}
-          <SidebarItem
-            Icon={MdExplore}
-            text="Explore"
-            handler={() => router.push("/explore")}
-          />
+          <SidebarItem Icon={MdExplore} text="Explore" handler={() => router.push("/explore")} />
           {/* <SidebarItem Icon={MdNotifications} text="Notifications" /> */}
 
-          {user && (
-            <SidebarItem Icon={IoMdLogOut} text="LogOut" handler={showModal} />
-          )}
+          {user && <SidebarItem Icon={IoMdLogOut} text="LogOut" handler={showModal} />}
         </div>
         <div></div>
       </div>

@@ -6,22 +6,27 @@ import { useForm } from "react-hook-form";
 import { BsImageFill } from "react-icons/bs";
 import useSWR, { mutate } from "swr";
 
-import Input from "components/Input";
-import { useAuthDispatch, useAuthState } from "context/auth.context";
-import { FUser } from "libs/types";
-import Loader from "components/Loader";
+import Input from "@components/Input";
+import { useAuthDispatch, useAuthState } from "@context/auth.context";
+
+import Loader from "@components/Loader";
 import Cookies from "js-cookie";
 import { BiLoaderAlt } from "react-icons/bi";
+import { User } from "@libs/types";
 
-const profile: NextPage<{ user: FUser }> = ({ user }) => {
+const profile: NextPage<{ user: User }> = ({ user }) => {
   const { push } = useRouter();
   const dispatch = useAuthDispatch();
   const [picture, setPicture] = useState("");
 
-  const { register, handleSubmit, errors } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
   const [isUpdating, setIsUpdating] = useState(false);
 
-  // `/api/users/${user._id}`
   const onChangePicture = (e: any) => {
     setPicture(URL.createObjectURL(e.target.files[0]));
   };
@@ -82,7 +87,7 @@ const profile: NextPage<{ user: FUser }> = ({ user }) => {
             </label>
             <input
               id="file-input"
-              ref={register}
+              {...register("profilePicture")}
               onChange={onChangePicture}
               type="file"
               name="profilePicture"
@@ -92,7 +97,7 @@ const profile: NextPage<{ user: FUser }> = ({ user }) => {
           <div className="flex flex-col space-y-3 ">
             <Input
               register={register}
-              name="name"
+              fieldName="name"
               label="Name"
               defaultValue={user?.name}
               placeholder="name"
@@ -100,7 +105,7 @@ const profile: NextPage<{ user: FUser }> = ({ user }) => {
             />
             <Input
               register={register}
-              name="bio"
+              fieldName="bio"
               label="Bio"
               defaultValue={user?.bio}
               placeholder="bio"
@@ -108,7 +113,7 @@ const profile: NextPage<{ user: FUser }> = ({ user }) => {
             />
             <Input
               register={register}
-              name="username"
+              fieldName="username"
               label="Username"
               defaultValue={user?.username}
               placeholder="username"
@@ -143,6 +148,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     // it returns 401 if the user is not authenticated
     const { data: user } = await axios.get(`${process.env.API_BASE_ENDPOINT}/api/auth/me`, {
       headers: { cookie },
+      withCredentials: true,
     });
 
     return { props: { user } };

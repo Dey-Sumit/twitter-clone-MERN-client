@@ -1,8 +1,8 @@
 import { BsClockHistory } from "react-icons/bs";
 import { FunctionComponent } from "react";
-import { FComment } from "libs/types";
+import { FComment } from "@libs/types";
 import { useRouter } from "next/router";
-import timeSince from "libs/timeSince";
+import timeSince from "@libs/timeSince";
 import Image from "next/image";
 const CommentCard: FunctionComponent<{ data: FComment }> = ({
   data: {

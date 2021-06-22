@@ -2,12 +2,11 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "components/*": ["src/components/*"],
-      "libs/*": ["src/lib/*"],
-      "middlewares/*": ["middlewares/*"],
-      "models/*": ["models/*"],
-      "styles/*": ["styles/*"],
-      "context/*": ["src/context/*"]
+      "@components/*": ["src/components/*"],
+      "@context/*": ["src/context/*"],
+      "@libs/*": ["libs/*"],
+      "@styles/*": ["styles/*"],
+      "@public/*": ["public/*"]
     },
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],

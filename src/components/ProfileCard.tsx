@@ -4,16 +4,16 @@ import { useRouter } from "next/router";
 import { FunctionComponent, MouseEvent, useEffect, useState } from "react";
 import { MdDelete, MdSettings } from "react-icons/md";
 import { mutate } from "swr";
-import { useAuthDispatch, useAuthState } from "context/auth.context";
-import { FUser } from "libs/types";
+import { useAuthDispatch, useAuthState } from "@context/auth.context";
+import { User } from "@libs/types";
 import Head from "next/head";
-import Loader from "components/Loader";
+import Loader from "@components/Loader";
 import Image from "next/image";
-import { useLayoutDispatch } from "context/layout.context";
+import { useLayoutDispatch } from "@context/layout.context";
 
 import Cookies from "js-cookie";
 
-const ProfileCard: FunctionComponent<{ profileData: FUser }> = ({ profileData }) => {
+const ProfileCard: FunctionComponent<{ profileData: User }> = ({ profileData }) => {
   const { push, query } = useRouter();
 
   const layoutDispatch = useLayoutDispatch();
@@ -104,7 +104,7 @@ const ProfileCard: FunctionComponent<{ profileData: FUser }> = ({ profileData })
             <div className="flex space-x-6 divide-x divide-dark-500">
               <div className="flex flex-col items-center pl-4">
                 <span className="text-gray-400">Tweets</span>
-                <span>{profileData?.noOfPosts}</span>
+                <span>{profileData?.noOPosts}</span>
               </div>
               <div className="flex flex-col items-center pl-4">
                 <span className="text-gray-400">Followers</span>

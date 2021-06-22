@@ -1,4 +1,4 @@
-import { useLayoutDispatch, useLayoutState } from "context/layout.context";
+import { useLayoutDispatch, useLayoutState } from "@context/layout.context";
 
 const ConfirmationModal = () => {
   const { showConfirmationModal, modalData } = useLayoutState();

@@ -2,16 +2,16 @@ import { BsClockHistory } from "react-icons/bs";
 import { AiOutlineHeart } from "react-icons/ai";
 import { FaHeart, FaRegComment } from "react-icons/fa";
 import { FunctionComponent, useState } from "react";
-import { FPost } from "libs/types";
+import { Post } from "@libs/types";
 import { useRouter } from "next/router";
 import axios from "axios";
-import { useAuthState } from "context/auth.context";
-import timeSince from "libs/timeSince";
-import { useLayoutDispatch } from "context/layout.context";
+import { useAuthState } from "@context/auth.context";
+import timeSince from "@libs/timeSince";
+import { useLayoutDispatch } from "@context/layout.context";
 
 import { MdDelete } from "react-icons/md";
 import Image from "next/image";
-import { usePaginatedPosts } from "libs/hooks";
+import { usePaginatedPosts } from "@libs/hooks";
 
 const Hash: FunctionComponent<{ children: string }> = ({ children }) => {
   const { push } = useRouter();
@@ -29,7 +29,7 @@ const Hash: FunctionComponent<{ children: string }> = ({ children }) => {
   );
 };
 
-const TweetCard: FunctionComponent<{ tweet: FPost }> = ({
+const TweetCard: FunctionComponent<{ tweet: Post }> = ({
   tweet: {
     content,
     user: { _id: uid, name, username, profilePicture },

@@ -1,5 +1,5 @@
 import useSWR from "swr";
-import { FTag } from "libs/types";
+import { FTag } from "@libs/types";
 import { FunctionComponent } from "react";
 import Loader from "./Loader";
 import TagCard from "./TagCard";
