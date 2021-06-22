@@ -1,3 +1,5 @@
+// deprecated
+
 export const popUp = {
   initial: {
     scale: 0,
