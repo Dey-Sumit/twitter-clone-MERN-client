@@ -18,6 +18,7 @@ const CreateTweet: FunctionComponent<{}> = () => {
 
   const onChangePicture = (e: ChangeEvent<HTMLInputElement>) => {
     setFile(e.target.files[0]);
+    e.target.value = null; // else cant select the previous file
   };
 
   const handleTweet = async (e) => {
@@ -112,10 +113,10 @@ const CreateTweet: FunctionComponent<{}> = () => {
                 <img
                   src={URL.createObjectURL(file)}
                   alt=" attachment"
-                  className="h-auto mx-auto border rounded-xl"
+                  className="h-[280px] w-full object-contain mx-auto border rounded-xl "
                 />
                 <MdCancel
-                  className="absolute w-8 h-8 text-gray-600 transform -translate-x-1/2 cursor-pointer inset-x-1/2 bottom-3"
+                  className="absolute w-8 h-8 text-gray-100 transform -translate-x-1/2 cursor-pointer inset-x-1/2 bottom-3"
                   onClick={() => setFile(null)}
                 />
               </div>
@@ -128,6 +129,7 @@ const CreateTweet: FunctionComponent<{}> = () => {
                 <input
                   id="file-input"
                   onChange={onChangePicture}
+                  // onClick={(e) => (e. = "")}
                   type="file"
                   name="attachment"
                   className="hidden"

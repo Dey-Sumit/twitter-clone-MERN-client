@@ -5,7 +5,7 @@ export interface User {
   password: string;
   profilePicture: string;
   bio: string;
-  // likes: string[]; // TODO FIX THIS
+  likes: string[];
   following: string[];
   followers: string[];
   // virtual fields

@@ -72,7 +72,7 @@ const Navbar = () => {
           onChange={(e) => setQuery(e.target.value)}
           value={query}
         />
-        {/* // TODO show animation */}
+        {/* // TODO TOP show animation */}
         <div
           className="absolute left-0 flex flex-col w-full space-y-1 rounded-sm top-8 bg-dark-600 "
           style={{ marginLeft: 0 }}

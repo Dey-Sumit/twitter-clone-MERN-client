@@ -35,7 +35,7 @@
     -webkit-transform: rotate(360deg);
   }
 }
-/* //TODO FIX */
+
 @keyframes spinner {
   0% {
     transform: rotate(0deg);
@@ -58,4 +58,10 @@ button:focus {
 }
 .hashtag {
   background-color: red;
+}
+
+.tweetCardImage__wrapper > div {
+  border-width: 1px;
+  border-radius: 12px;
+  border-color: #eeeeee;
 }

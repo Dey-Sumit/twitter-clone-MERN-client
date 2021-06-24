@@ -53,7 +53,6 @@ const TweetCard: FunctionComponent<{ tweet: Post }> = ({
   const { push } = useRouter();
   const [likesCount, setLikesCount] = useState<number>(likes ? likes.length : 0);
   const [likedByMe, setLikedByMe] = useState<boolean>(likes?.includes(user?._id));
-  console.log({ likedByMe });
 
   // console.log({likedByMe,likes,user});
 
@@ -69,7 +68,6 @@ const TweetCard: FunctionComponent<{ tweet: Post }> = ({
     setLikedByMe((value) => !value);
 
     await axios.put(`/api/posts/${_id}/rate`);
-    //TODO optimistic using SWR
   };
   const handleDelete = async (e: any) => {
     e.stopPropagation();
@@ -141,16 +139,15 @@ const TweetCard: FunctionComponent<{ tweet: Post }> = ({
             return word[0] !== "#" ? <span key={i}>{word} </span> : <Hash key={i}>{word}</Hash>;
           })}
         </div>
-
+        //TODO https://www.npmjs.com/package/react-flip-move
         {attachmentURL && (
-          // TODO image sizing, rounded border
-          <div className="relative w-9/12 h-32 mx-auto md:h-64">
+          <div className="relative  h-[280px] mx-auto tweetCardImage__wrapper">
             {/* //! Next image does not support blob */}
             {clientOnly ? (
               <img
                 src={attachmentURL}
                 alt="attachment"
-                className="object-cover w-full h-full border rounded-xl"
+                className="object-contain w-full h-full border rounded-xl"
               />
             ) : (
               <Image
@@ -159,12 +156,11 @@ const TweetCard: FunctionComponent<{ tweet: Post }> = ({
                 objectFit="contain"
                 src={attachmentURL}
                 alt="attachment"
-                className="rounded-xl"
+                className="px-2"
               />
             )}
           </div>
         )}
-
         <div className="flex justify-around ">
           <div className="flex items-center space-x-2 cursor-pointer">
             <FaRegComment
