@@ -19,7 +19,7 @@ const Navbar = () => {
   const [timer, setTimer] = useState(null);
   const [loading, setLoading] = useState(null);
   const [searchResults, setSearchResults] = useState<User[]>([]);
-
+  //add lol
   const goToUser = (uid: string) => {
     setQuery("");
     // setSearchResults([]);
