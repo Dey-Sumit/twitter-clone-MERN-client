@@ -1,6 +1,6 @@
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
-// import NextNprogress from "nextjs-progressbar";
+import NextNprogress from "nextjs-progressbar";
 import { useLayoutState } from "@context/layout.context";
 import Overlay from "./Overlay";
 import ConfirmationModal from "./modals/ConfirmationModal";
@@ -10,13 +10,13 @@ const Layout = ({ children }) => {
 
   return (
     <div className="flex text-dark-100">
-      {/* <NextNprogress
+      <NextNprogress
         color="#29D"
         startPosition={0.3}
         stopDelayMs={200}
         height={3}
         options={{ showSpinner: false }}
-      /> */}
+      />
 
       {(showAuthModal || showConfirmationModal) && <Overlay />}
       <AuthModal />

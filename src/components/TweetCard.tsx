@@ -139,7 +139,6 @@ const TweetCard: FunctionComponent<{ tweet: Post }> = ({
             return word[0] !== "#" ? <span key={i}>{word} </span> : <Hash key={i}>{word}</Hash>;
           })}
         </div>
-        //TODO https://www.npmjs.com/package/react-flip-move
         {attachmentURL && (
           <div className="relative  h-[280px] mx-auto tweetCardImage__wrapper">
             {/* //! Next image does not support blob */}
@@ -156,7 +155,6 @@ const TweetCard: FunctionComponent<{ tweet: Post }> = ({
                 objectFit="contain"
                 src={attachmentURL}
                 alt="attachment"
-                className="px-2"
               />
             )}
           </div>

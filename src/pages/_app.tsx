@@ -6,14 +6,18 @@ import { SWRConfig } from "swr";
 import { LayoutProvider } from "@context/layout.context";
 import Layout from "@components/Layout";
 import Head from "next/head";
-
-// TODO next js progressbar
+import { useEffect } from "react";
 
 axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_BASE_ENDPOINT; // the prefix of the URL only for the client side
 axios.defaults.withCredentials = true;
 
 function MyApp({ Component, pageProps }) {
   const { pathname } = useRouter();
+  useEffect(() => {
+    window.onload = function () {
+      document.getElementById("loadingScreen");
+    };
+  }, []);
 
   return (
     <AuthProvider>

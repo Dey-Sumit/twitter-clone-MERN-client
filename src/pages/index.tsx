@@ -7,15 +7,20 @@ import { useAuthState } from "@context/auth.context";
 import { usePaginatedPosts } from "@libs/hooks";
 
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-
+import { useEffect } from "react";
 
 export default function Home() {
   const { push } = useRouter();
 
   const { user } = useAuthState();
   const { error, posts, page, setPage, isReachingEnd } = usePaginatedPosts("/api/posts/feed");
+
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true); // solves the hydration problem
+  }, []);
 
   return (
     <div className="grid grid-cols-8 gap-x-8 ">
@@ -41,8 +46,8 @@ export default function Home() {
             dataLength={posts.length} //This is important field to render the next data
             next={() => setPage(page + 1)}
             hasMore={!isReachingEnd}
-            loader={<Loader />}
-            endMessage={!error && <p className="customText-h3">No more posts</p>}
+            loader={mounted && <h3>Loading...</h3>}
+            endMessage={mounted && !error && <p className="customText-h3">No more posts</p>}
           >
             {posts?.map((tweet) => (
               <TweetCard tweet={tweet} key={tweet._id.toString()} />
