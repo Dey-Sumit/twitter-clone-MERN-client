@@ -57,46 +57,44 @@ const Sidebar = () => {
   };
 
   return (
-    <>
-      <div
-        className={`bg-dark-700 fixed flex-col justify-between h-screen px-3 sm:px-6 py-8 pb-20 text-lg shadow-lg flex z-10 sm:sticky top-0 sm:w-40  max-w-max transform transition-all duration-300 ${
-          showNavbar ? "  translate-x-0" : "  -translate-x-full sm:translate-x-0"
-        }`}
-      >
-        <div className="flex items-center justify-center space-x-2 font-medium ">
-          <Link href="/">
-            <a>
-              <SiTwitter
-                className="text-blue-600 cursor-pointer "
-                size="28"
-                onClick={() => layoutDispatch({ type: "TOGGLE_NAVBAR" })}
-              />
-            </a>
-          </Link>
-        </div>
-        <div
-          className="flex flex-col space-y-5 "
-          onClick={(e) => {
-            e.stopPropagation();
-            layoutDispatch({ type: "TOGGLE_NAVBAR" });
-          }}
-        >
-          <SidebarItem Icon={IoMdHome} text="Home" handler={() => router.push("/")} />
-          {user && (
-            <SidebarItem
-              Icon={AiOutlineUser}
-              text="Profile"
-              handler={() => router.push(`/user/${user._id}`)}
+    <div
+      className={`bg-dark-700 fixed flex-col justify-between h-screen px-3 sm:px-6 py-8 pb-20 text-lg shadow-lg flex z-10 sm:sticky top-0 sm:max-w-max  max-w-max transform transition-all duration-300 ${
+        showNavbar ? "  translate-x-0" : "  -translate-x-full sm:translate-x-0"
+      }`}
+    >
+      <div className="flex items-center justify-center space-x-2 font-medium ">
+        <Link href="/">
+          <a>
+            <SiTwitter
+              className="text-blue-600 cursor-pointer "
+              size="28"
+              onClick={() => layoutDispatch({ type: "TOGGLE_NAVBAR" })}
             />
-          )}
-          <SidebarItem Icon={MdExplore} text="Explore" handler={() => router.push("/explore")} />
-          {/* <SidebarItem Icon={MdNotifications} text="Notifications" /> */}
-
-          {user && <SidebarItem Icon={IoMdLogOut} text="LogOut" handler={showModal} />}
-        </div>
-        <div></div>
+          </a>
+        </Link>
       </div>
-    </>
+      <div
+        className="flex flex-col space-y-5 "
+        onClick={(e) => {
+          e.stopPropagation();
+          layoutDispatch({ type: "TOGGLE_NAVBAR" });
+        }}
+      >
+        <SidebarItem Icon={IoMdHome} text="Home" handler={() => router.push("/")} />
+        {user && (
+          <SidebarItem
+            Icon={AiOutlineUser}
+            text="Profile"
+            handler={() => router.push(`/user/${user._id}`)}
+          />
+        )}
+        <SidebarItem Icon={MdExplore} text="Explore" handler={() => router.push("/explore")} />
+        {/* <SidebarItem Icon={MdNotifications} text="Notifications" /> */}
+
+        {user && <SidebarItem Icon={IoMdLogOut} text="LogOut" handler={showModal} />}
+      </div>
+      <div></div>
+    </div>
   );
 };
 

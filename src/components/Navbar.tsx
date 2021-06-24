@@ -3,12 +3,14 @@ import { useAuthState } from "@context/auth.context";
 import { useLayoutDispatch } from "@context/layout.context";
 import { User } from "@libs/types";
 import axios from "axios";
+import classNames from "classnames";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { BiSearchAlt } from "react-icons/bi";
+import { MdCancel } from "react-icons/md";
 import { SiTwitter } from "react-icons/si";
-
+// https://smiley.cool/emoticons.php
 const Navbar = () => {
   const { push } = useRouter();
   const { user } = useAuthState();
@@ -18,35 +20,56 @@ const Navbar = () => {
   const [query, setQuery] = useState("");
   const [timer, setTimer] = useState(null);
   const [loading, setLoading] = useState(null);
-  const [searchResults, setSearchResults] = useState<User[]>([]);
-  //add lol
-  const goToUser = (uid: string) => {};
-  useEffect(() => {
-    if (query.trim() === "") {
-      setSearchResults([]);
+  const [showDropDown, setShowDropDown] = useState(false);
+  const [searchResults, setSearchResults] = useState<User[]>(null);
+  console.log({ searchResults, query, loading });
+
+  const goToUser = (uid: string) => {
+    setQuery("");
+    // setSearchResults([]);
+    push(`/user/${uid}`);
+  };
+  // useEffect(() => {
+  //   if (query.trim() === "") {
+  //     setSearchResults([]);
+  //     return;
+  //   }
+  //   searchUsers();
+  // }, [query]);
+
+  // const handleSearch = (e) => {
+  //   console.log(e.target.value);
+
+  //   searchUsers();
+  // };
+
+  const handleSearch = async (e) => {
+    const value = e.target.value;
+
+    setQuery(value);
+    if (value.trim() === "") {
+      setSearchResults(null);
       return;
     }
-    searchUsers();
-  }, [query]);
 
-  const searchUsers = async () => {
     clearTimeout(timer);
     setTimer(
       setTimeout(async () => {
         try {
           setLoading(true);
+          setSearchResults([]);
           const { data } = await axios.get("/api/users/search", {
             params: {
-              q: query,
+              q: value,
             },
           });
-          setSearchResults(data.users);
+          setSearchResults(data);
         } catch (err) {
           console.log(err);
         } finally {
           setLoading(false);
         }
-      }, 400)
+      }, 600)
     );
   };
 
@@ -57,52 +80,87 @@ const Navbar = () => {
         size="24"
         onClick={() => dispatch({ type: "TOGGLE_NAVBAR" })}
       />
-      <div className="relative flex items-center justify-center flex-1 px-3 py-1 space-x-3 bg-dark-700">
+      {/* search bar */}
+      <div className="relative flex items-center justify-center w-full px-3 py-1 space-x-3 md:w-2/3 bg-dark-700">
         <BiSearchAlt />
         <input
           type="text"
           placeholder="Search"
           className="w-full bg-transparent text-dark-100 focus:outline-none"
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={handleSearch}
+          onClick={() => setShowDropDown(true)}
           value={query}
+          // onBlur={() => {
+          //   console.log("blurred");
+
+          //   setShowDropDown(false);
+          // }}
         />
-        {/* // TODO TOP show animation */}
+        {showDropDown && (
+          <MdCancel className="cursor-pointer" size={25} onClick={() => setShowDropDown(false)} />
+        )}
+
         <div
-          className="absolute left-0 flex flex-col w-full space-y-1 rounded-sm top-8 bg-dark-600 "
+          className={classNames(
+            "absolute left-0 flex flex-col transition-all w-full space-y-1  rounded-lg shadow-md top-8 bg-dark-600 ",
+            {
+              "h-64 opacity-100": showDropDown,
+              "h-0 opacity-0": !showDropDown,
+            }
+          )}
           style={{ marginLeft: 0 }}
         >
-          <div className="mt-2">{loading && <Loader />}</div>
-          {!loading &&
-            searchResults?.map((user: User) => (
-              <div
-                className="flex items-center px-4 py-1 space-x-6 cursor-pointer bg-dark-700"
-                onClick={() => goToUser(user._id)}
-              >
-                <Image
-                  width={28}
-                  height={28}
-                  src={user?.profilePicture}
-                  alt=""
-                  className="rounded-full w-7 h-7 "
-                />
-                <div>
-                  <p>{user.name}</p>
-                  <p className="text-blue-700">{user.username}</p>
-                </div>
+          {!query.length && (
+            <span className="grid h-full place-items-center">
+              Search Users by username or names (๑◔‿◔๑)
+            </span>
+          )}
+          {!loading && searchResults && !searchResults.length && (
+            <span className="grid h-full place-items-center">No User Found ( ^_^)／</span>
+          )}
+          {loading && (
+            <div className="grid h-full place-items-center">
+              <Loader />
+            </div>
+          )}
+
+          {searchResults?.map((user: User) => (
+            <div
+              className="flex items-center px-5 py-2 space-x-6 cursor-pointer bg-dark-800 hover:bg-dark-500"
+              onClick={() => {
+                setShowDropDown(false);
+                setSearchResults(null);
+                goToUser(user._id);
+              }}
+            >
+              <Image
+                width={38}
+                height={38}
+                src={user?.profilePicture}
+                alt=""
+                className="rounded-full "
+              />
+              <div>
+                <p>{user.name}</p>
+                <p className="text-blue-700">{user.username}</p>
               </div>
-            ))}
+            </div>
+          ))}
         </div>
       </div>
-      )
+
       {!user ? (
         // <div className="flex space-x-3">
-        <button onClick={() => push("/auth")} className="p-1 text-blue-600 border border-blue-600">
+        <button
+          onClick={() => push("/auth")}
+          className="flex-shrink-0 p-1 text-blue-600 border border-blue-600"
+        >
           Log in
         </button>
       ) : (
         // </div>
         <div
-          className="flex items-center p-2 space-x-3 rounded-md cursor-pointer hover:bg-dark-700"
+          className="flex items-center flex-shrink-0 p-2 space-x-3 rounded-md cursor-pointer hover:bg-dark-700"
           onClick={() => push(`/user/${user._id}`)}
         >
           {<span className="hidden mr-2 sm:block">Hey {user?.username}!</span>}
