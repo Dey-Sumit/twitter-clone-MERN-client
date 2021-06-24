@@ -46,7 +46,7 @@ export default function Home() {
             dataLength={posts.length} //This is important field to render the next data
             next={() => setPage(page + 1)}
             hasMore={!isReachingEnd}
-            loader={mounted && <h3>Loading...</h3>}
+            loader={mounted && <Loader />}
             endMessage={mounted && !error && <p className="customText-h3">No more posts</p>}
           >
             {posts?.map((tweet) => (

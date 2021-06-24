@@ -1,14 +1,13 @@
+import Loader from "@components/Loader";
+import { useAuthState } from "@context/auth.context";
+import { useLayoutDispatch } from "@context/layout.context";
+import { User } from "@libs/types";
 import axios from "axios";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { BiSearchAlt } from "react-icons/bi";
-import { useAuthState } from "@context/auth.context";
-import { User } from "@libs/types";
-import Loader from "@components/Loader";
-
 import { SiTwitter } from "react-icons/si";
-import { useLayoutDispatch, useLayoutState } from "@context/layout.context";
-import Image from "next/image";
 
 const Navbar = () => {
   const { push } = useRouter();
@@ -51,7 +50,7 @@ const Navbar = () => {
         } finally {
           setLoading(false);
         }
-      }, 250)
+      }, 400)
     );
   };
 
@@ -62,7 +61,6 @@ const Navbar = () => {
         size="24"
         onClick={() => dispatch({ type: "TOGGLE_NAVBAR" })}
       />
-
       <div className="relative flex items-center justify-center flex-1 px-3 py-1 space-x-3 bg-dark-700">
         <BiSearchAlt />
         <input
@@ -99,6 +97,7 @@ const Navbar = () => {
             ))}
         </div>
       </div>
+      )
       {!user ? (
         // <div className="flex space-x-3">
         <button onClick={() => push("/auth")} className="p-1 text-blue-600 border border-blue-600">

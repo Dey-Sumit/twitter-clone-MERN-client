@@ -7,6 +7,7 @@ import { Post } from "@libs/types";
 import { usePaginatedPosts } from "@libs/hooks";
 import Image from "next/image";
 import { mutate } from "swr";
+import { useEffect } from "react";
 
 const CreateTweet: FunctionComponent<{}> = () => {
   const [file, setFile] = useState(null);
@@ -72,6 +73,7 @@ const CreateTweet: FunctionComponent<{}> = () => {
     const s = e.target.value;
     setTags(s.match(/#[a-z]+/gi) || []);
   };
+
   return (
     user && (
       <div className="flex p-2 space-x-2">

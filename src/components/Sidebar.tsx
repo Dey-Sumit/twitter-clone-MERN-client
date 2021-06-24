@@ -11,6 +11,8 @@ import { useLayoutDispatch, useLayoutState } from "@context/layout.context";
 import { FunctionComponent, MouseEventHandler } from "react";
 import { IconType } from "react-icons";
 import Cookies from "js-cookie";
+import { useState } from "react";
+import { useEffect } from "react";
 
 const SidebarItem: FunctionComponent<{
   Icon: IconType;
