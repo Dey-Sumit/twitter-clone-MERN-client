@@ -90,11 +90,6 @@ const Navbar = () => {
           onChange={handleSearch}
           onClick={() => setShowDropDown(true)}
           value={query}
-          // onBlur={() => {
-          //   console.log("blurred");
-
-          //   setShowDropDown(false);
-          // }}
         />
         {showDropDown && (
           <MdCancel className="cursor-pointer" size={25} onClick={() => setShowDropDown(false)} />
