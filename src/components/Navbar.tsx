@@ -20,11 +20,7 @@ const Navbar = () => {
   const [loading, setLoading] = useState(null);
   const [searchResults, setSearchResults] = useState<User[]>([]);
   //add lol
-  const goToUser = (uid: string) => {
-    setQuery("");
-    // setSearchResults([]);
-    push(`/user/${uid}`);
-  };
+  const goToUser = (uid: string) => {};
   useEffect(() => {
     if (query.trim() === "") {
       setSearchResults([]);
