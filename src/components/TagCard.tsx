@@ -1,8 +1,8 @@
-import { FTag } from "@libs/types";
+import { Tag } from "@libs/types";
 import { useRouter } from "next/router";
 import { FunctionComponent } from "react";
 
-const TagCard: FunctionComponent<{ tag: FTag }> = ({ tag: { name, length } }) => {
+const TagCard: FunctionComponent<{ tag: Tag }> = ({ tag: { name, length } }) => {
   const { push } = useRouter();
 
   return (

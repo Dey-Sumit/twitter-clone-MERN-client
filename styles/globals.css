@@ -20,7 +20,23 @@
     @apply mx-auto mt-3 font-semibold text-center;
   }
 }
+/* chrome */
+::-webkit-scrollbar {
+  display: none;
+}
+/* firefox */
+* {
+  scrollbar-width: none;
+}
 
+/* chrome */
+/* .feed__wrapper::-webkit-scrollbar {
+  display: none;
+} 
+/* firefox */
+/* .feed__wrapper {
+  scrollbar-width: none;
+} */
 .loader {
   border-top-color: #1f6492;
   -webkit-animation: spinner 1.5s linear infinite;

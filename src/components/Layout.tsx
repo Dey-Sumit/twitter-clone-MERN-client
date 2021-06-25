@@ -9,7 +9,7 @@ const Layout = ({ children }) => {
   const { showAuthModal, showConfirmationModal } = useLayoutState();
 
   return (
-    <div className="flex text-dark-100">
+    <div className="flex ">
       <NextNprogress
         color="#29D"
         startPosition={0.3}
@@ -25,7 +25,7 @@ const Layout = ({ children }) => {
       <Sidebar />
       <div className="flex-1">
         <Navbar />
-        <div className="px-2 py-4 lg:px-20">
+        <div className="px-2 py-1 lg:px-20">
           {/* // wrapper 👆 */}
           {children}
         </div>

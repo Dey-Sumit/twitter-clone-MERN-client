@@ -2,7 +2,7 @@ import axios from "axios";
 import { FunctionComponent, useState } from "react";
 import { mutate } from "swr";
 import { useAuthState } from "../context/auth.context";
-import { FComment } from "@libs/types";
+import { Comment } from "@libs/types";
 import Image from "next/image";
 const CreateComment: FunctionComponent<{
   tid: string;
@@ -10,10 +10,11 @@ const CreateComment: FunctionComponent<{
   const { user } = useAuthState();
   const [content, setContent] = useState("");
 
-  const handleComment = async () => {
+  const handleComment = async (e) => {
+    e.preventDefault();
     if (content.length === 0) return;
 
-    const FAKE_COMMENT: FComment = {
+    const FAKE_COMMENT: Comment = {
       user,
       _id: Math.floor(Math.random()).toString(),
       content,

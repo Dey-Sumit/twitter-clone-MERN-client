@@ -1,11 +1,9 @@
-import axios from "axios";
-import { GetServerSidePropsContext, NextPage } from "next";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import Trends from "@components/Trends";
 import TweetCard from "@components/TweetCard";
 import { Post } from "@libs/types";
 import useSWR from "swr";
-import { useRouter } from "next/router";
 import Loader from "@components/Loader";
 interface IData {
   posts: Post[];
@@ -24,7 +22,7 @@ const index = () => {
     <div className="grid grid-cols-8 gap-x-8 ">
       {/* <div className="col-span-2">Sidebar</div> */}
       <Head>
-        <title>{tag}</title>
+        <title>Tweet/{tag}</title>
       </Head>
       <div className="col-span-8 md:col-span-5">
         {data?.posts ? (
@@ -75,5 +73,7 @@ const index = () => {
 //     },
 //   };
 // };
+
+// you can use ISR here , cause if some people see the tweets after some delay,that's not an issue at all in 1 million user's webapp
 
 export default index;

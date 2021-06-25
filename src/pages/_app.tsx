@@ -22,7 +22,8 @@ function MyApp({ Component, pageProps }) {
   return (
     <AuthProvider>
       <Head>
-        <title>Twitty : Social Life</title>
+        <title>Twitty : Not Twitter</title>
+        <link rel="icon" href="/favicon.png" />
       </Head>
       <LayoutProvider>
         {pathname !== "/auth" ? (

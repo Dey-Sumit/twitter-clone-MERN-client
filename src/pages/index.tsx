@@ -25,37 +25,39 @@ export default function Home() {
   return (
     <div className="grid grid-cols-8 gap-x-8 ">
       <div className="col-span-8 md:col-span-5">
-        {user ? (
-          <CreateTweet />
-        ) : (
-          <div className="p-3 text-center">
-            <p>Sign in to talk to the world 😉</p>
-            <button onClick={() => push("/auth")} className="mx-auto mt-3 button">
-              Sign up / Sign in
-            </button>
-          </div>
-        )}
-        {!error && !posts && <Loader />}
-        {error && <h3 className="customText-h3">Could not load the post, Server Error</h3>}
-        {user && posts.length === 0 ? (
-          <h3 className=" customText-h3">
-            You don't have any posts in your feed, create one or follow someone!
-          </h3>
-        ) : (
-          <InfiniteScroll
-            dataLength={posts.length} //This is important field to render the next data
-            next={() => setPage(page + 1)}
-            hasMore={!isReachingEnd}
-            loader={mounted && <Loader />}
-            endMessage={mounted && !error && <p className="customText-h3">No more posts</p>}
-          >
-            {posts?.map((tweet) => (
-              <TweetCard tweet={tweet} key={tweet._id.toString()} />
-            ))}
-          </InfiniteScroll>
-        )}
+        <div className="h-[90vh] overflow-y-auto feed__wrapper">
+          {user ? (
+            <CreateTweet />
+          ) : (
+            <div className="p-3 text-center">
+              <p>Sign in to talk to the world 😉</p>
+              <button onClick={() => push("/auth")} className="mx-auto mt-3 button">
+                Sign up / Sign in
+              </button>
+            </div>
+          )}
+          {!error && !posts && <Loader />}
+          {error && <h3 className="customText-h3">Could not load the post, Server Error</h3>}
+          {user && posts.length === 0 ? (
+            <h3 className=" customText-h3">
+              You don't have any posts in your feed, create one or follow someone!
+            </h3>
+          ) : (
+            <InfiniteScroll
+              dataLength={posts.length}
+              next={() => setPage(page + 1)}
+              hasMore={!isReachingEnd}
+              loader={mounted && <Loader />}
+              endMessage={mounted && !error && <p className="customText-h3">No more posts</p>}
+            >
+              {posts?.map((tweet) => (
+                <TweetCard tweet={tweet} key={tweet._id.toString()} />
+              ))}
+            </InfiniteScroll>
+          )}
+        </div>
       </div>
-      <div className="hidden col-span-8 space-y-4 md:col-span-3 md:block">
+      <div className="hidden col-span-8 py-4 space-y-4 md:col-span-3 md:block">
         <Trends noOfElements={5} />
         <People noOfElements={5} />
       </div>

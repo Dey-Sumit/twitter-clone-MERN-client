@@ -85,7 +85,7 @@ const ProfileCard: FunctionComponent<{ profileData: User }> = ({ profileData }) 
   return (
     <>
       <Head>
-        <title>{profileData ? profileData.username : "Profile"}</title>
+        <title>Twitty | {profileData ? profileData.username : "Profile"}</title>
       </Head>
       <div className="flex flex-col items-center p-3 space-y-2 rounded-sm shadow-md bg-dark-600">
         {profileData ? (

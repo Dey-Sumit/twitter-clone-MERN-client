@@ -1,6 +1,7 @@
 import Image from "next/image";
 
 import heroImage from "@public/image_3d.png";
+import logo from "@public/logo.svg";
 import AuthComponent from "@components/AuthComponent";
 
 export default function Auth() {
@@ -18,8 +19,11 @@ export default function Auth() {
 
       {/* right part */}
       <div className="grid col-span-8 p-2 bg-dark-700 md:col-span-5 place-items-center">
-        <div>
-          <h3 className="mb-10 text-2xl">Come on! Let's waste time on Social Media</h3>
+        <div className="flex flex-col justify-center space-y-8">
+          {/* <div className="flex flex-col justify-center space-y-10 "> */}
+          <Image src={logo} width={40} height={40} />
+          <h3 className="mb-10 text-lg md:text-2xl">Come on! Let's waste time on Social Media</h3>
+          {/* </div> */}
           <AuthComponent />
         </div>
       </div>

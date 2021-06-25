@@ -139,7 +139,7 @@ const CreateTweet: FunctionComponent<{}> = () => {
                 />
               </div>
               <button
-                className="px-4 py-1 ml-auto text-lg font-bold bg-blue-700 rounded-full focus:outline-none"
+                className="px-4 py-1 ml-auto text-lg font-bold bg-blue-700 rounded-full focus:outline-none "
                 type="submit"
               >
                 Tweet

@@ -1,17 +1,17 @@
+import axios from "axios";
+import { FunctionComponent, useState } from "react";
 import { BsClockHistory } from "react-icons/bs";
 import { AiOutlineHeart } from "react-icons/ai";
 import { FaHeart, FaRegComment } from "react-icons/fa";
-import { FunctionComponent, useState } from "react";
-import { Post } from "@libs/types";
-import { useRouter } from "next/router";
-import axios from "axios";
-import { useAuthState } from "@context/auth.context";
-import timeSince from "@libs/timeSince";
-import { useLayoutDispatch } from "@context/layout.context";
-
 import { MdDelete } from "react-icons/md";
 import Image from "next/image";
+import { useRouter } from "next/router";
+
+import { Post } from "@libs/types";
+import timeSince from "@libs/timeSince";
 import { usePaginatedPosts } from "@libs/hooks";
+import { useAuthState } from "@context/auth.context";
+import { useLayoutDispatch } from "@context/layout.context";
 
 const Hash: FunctionComponent<{ children: string }> = ({ children }) => {
   const { push } = useRouter();
@@ -123,7 +123,7 @@ const TweetCard: FunctionComponent<{ tweet: Post }> = ({
         {/* top */}
         <div className="flex items-center">
           <span className="flex-shrink-0 text-white">{name}</span>
-          <span className="flex-shrink-0 ml-2 overflow-hidden text-gray-400 cursor-pointer overflow-ellipsis flex-grow-1 whitespace-nowrap ">
+          <span className="flex-shrink-0 ml-2 overflow-hidden text-gray-200 cursor-pointer overflow-ellipsis flex-grow-1 whitespace-nowrap ">
             @{username}
           </span>
           {clientOnly && (

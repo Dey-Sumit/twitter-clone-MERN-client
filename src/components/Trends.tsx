@@ -1,11 +1,11 @@
 import useSWR from "swr";
-import { FTag } from "@libs/types";
+import { Tag } from "@libs/types";
 import { FunctionComponent } from "react";
 import Loader from "./Loader";
 import TagCard from "./TagCard";
 
 const Trends: FunctionComponent<{ noOfElements?: number }> = ({ noOfElements = 10 }) => {
-  const { data: tags, error } = useSWR<FTag[]>("/api/tags");
+  const { data: tags, error } = useSWR<Tag[]>("/api/tags");
 
   return (
     <div className="flex flex-col p-2 space-y-3 divide-y shadow-sm rounded-2xl bg-dark-600 divide-dark-500">

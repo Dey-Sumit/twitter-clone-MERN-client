@@ -22,7 +22,6 @@ const Navbar = () => {
   const [loading, setLoading] = useState(null);
   const [showDropDown, setShowDropDown] = useState(false);
   const [searchResults, setSearchResults] = useState<User[]>(null);
-  console.log({ searchResults, query, loading });
 
   const goToUser = (uid: string) => {
     setQuery("");
@@ -74,7 +73,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="sticky top-0 left-0 z-10 flex items-center justify-between p-3 space-x-4 bg-dark-600 text-dark-100 md:px-10 lg:px-16">
+    <div className="sticky top-0 left-0 z-10 flex items-center h-[10vh] justify-between p-3 space-x-4 bg-dark-600 text-dark-100 md:px-10 lg:px-16">
       <SiTwitter
         className="text-blue-600 cursor-pointer sm:hidden"
         size="24"
@@ -160,8 +159,8 @@ const Navbar = () => {
         >
           {<span className="hidden mr-2 sm:block">Hey {user?.username}!</span>}
           <Image
-            width={30}
-            height={30}
+            width={40}
+            height={40}
             layout="fixed"
             src={user?.profilePicture}
             alt=""
