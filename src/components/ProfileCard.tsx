@@ -12,9 +12,12 @@ import Image from "next/image";
 import { useLayoutDispatch } from "@context/layout.context";
 
 import Cookies from "js-cookie";
+import { useSocket } from "@context/socket.context";
 
 const ProfileCard: FunctionComponent<{ profileData: User }> = ({ profileData }) => {
   const { push, query } = useRouter();
+
+  const socket = useSocket();
 
   const layoutDispatch = useLayoutDispatch();
   const authDispatch = useAuthDispatch();
@@ -38,15 +41,20 @@ const ProfileCard: FunctionComponent<{ profileData: User }> = ({ profileData }) 
       return;
     }
     if (loading) return;
-    const type = isFollowing ? "unfollow" : "follow";
-    const ENDPOINT = `/api/users/${profileData._id}/${type}`;
+    const ENDPOINT = `/api/users/${profileData._id}/follow`;
     try {
       setLoading(true);
       await axios.put(ENDPOINT);
-      setIsFollowing((value) => !value);
 
+      !isFollowing &&
+        socket.emit("NOTIFY", {
+          userTo: profileData._id,
+          message: `${authUser.name} started following you`,
+        });
+
+      setIsFollowing((value) => !value);
       // update the followers and followings
-      mutate(`/api/users/${authUser._id}/following`);
+      mutate(`/api/users/${authUser._id}/followings`);
       mutate(`/api/users/${authUser._id}/followers`);
       mutate(`/api/users/${authUser._id}`);
     } catch (error) {

@@ -49,7 +49,7 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     async function loadUser() {
-      console.log(Cookies.get("connect.sid"));
+      //console.log(Cookies.get("connect.sid"));
 
       try {
         // set initially from cookie

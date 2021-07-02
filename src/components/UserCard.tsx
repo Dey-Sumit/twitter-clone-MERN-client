@@ -33,7 +33,7 @@ const UserCard: FunctionComponent<{
       setIsFollowing((value) => !value);
 
       // update the followers and followings
-      mutate(`/api/users/${authUser._id}/following`);
+      mutate(`/api/users/${authUser._id}/followings`);
       mutate(`/api/users/${authUser._id}`);
     } catch (error) {
       console.log(error.response.data.message);

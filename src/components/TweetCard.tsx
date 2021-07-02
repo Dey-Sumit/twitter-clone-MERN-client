@@ -12,6 +12,8 @@ import timeSince from "@libs/timeSince";
 import { usePaginatedPosts } from "@libs/hooks";
 import { useAuthState } from "@context/auth.context";
 import { useLayoutDispatch } from "@context/layout.context";
+import { useSocket } from "@context/socket.context";
+import { useSnackbar } from "notistack";
 
 const Hash: FunctionComponent<{ children: string }> = ({ children }) => {
   const { push } = useRouter();
@@ -43,11 +45,13 @@ const TweetCard: FunctionComponent<{ tweet: Post }> = ({
   },
 }) => {
   const { pathname } = useRouter();
-
+  const socket = useSocket();
+  
   const { user } = useAuthState();
   const dispatch = useLayoutDispatch();
   // const { showDeleteModal, postId } = useLayoutState();
   const { mutate: paginatedPostsMutate } = usePaginatedPosts("/api/posts/feed");
+  // const { socket } = useSocket();
 
   // const extractedTags = tags.map((tag) => tag.name);
   const { push } = useRouter();
@@ -55,6 +59,7 @@ const TweetCard: FunctionComponent<{ tweet: Post }> = ({
   const [likedByMe, setLikedByMe] = useState<boolean>(likes?.includes(user?._id));
 
   // console.log({likedByMe,likes,user});
+  
 
   const handleLike = async (e: any) => {
     e.stopPropagation();
@@ -67,7 +72,13 @@ const TweetCard: FunctionComponent<{ tweet: Post }> = ({
     likedByMe ? setLikesCount(likesCount - 1) : setLikesCount(likesCount + 1);
     setLikedByMe((value) => !value);
 
+    socket.emit("NOTIFY", {
+      userTo: uid,
+      message: `${user.name} liked your post`,
+    });
+
     await axios.put(`/api/posts/${_id}/rate`);
+
   };
   const handleDelete = async (e: any) => {
     e.stopPropagation();

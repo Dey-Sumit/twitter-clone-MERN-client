@@ -1,4 +1,4 @@
-import { IoMdHome, IoMdLogOut } from "react-icons/io";
+import { IoMdHome, IoMdLogOut, IoMdNotifications } from "react-icons/io";
 import { MdExplore } from "react-icons/md";
 import { SiTwitter } from "react-icons/si";
 import Link from "next/link";
@@ -13,6 +13,7 @@ import { IconType } from "react-icons";
 import Cookies from "js-cookie";
 import { useState } from "react";
 import { useEffect } from "react";
+import useSWR from "swr";
 
 const SidebarItem: FunctionComponent<{
   Icon: IconType;
@@ -50,11 +51,13 @@ const Sidebar = () => {
     authDispatch({ type: "REMOVE_USER" }); // ?NOT NEEDED I guess
     router.push("/auth");
     Cookies.remove("user");
-    await axios.post("/api/auth/logout");
+    await axios.delete("/api/auth/logout");
     layoutDispatch({
       type: "HIDE_CONFIRMATION_MODAL",
     });
   };
+  const getNotifications = () => {};
+  const { data: notifications } = useSWR("/api/notifications");
 
   return (
     <div
@@ -86,6 +89,13 @@ const Sidebar = () => {
             Icon={AiOutlineUser}
             text="Profile"
             handler={() => router.push(`/user/${user._id}`)}
+          />
+        )}
+        {user && (
+          <SidebarItem
+            Icon={IoMdNotifications}
+            text={notifications?.length}
+            handler={() => router.push("/notifications/")}
           />
         )}
         <SidebarItem Icon={MdExplore} text="Explore" handler={() => router.push("/explore")} />

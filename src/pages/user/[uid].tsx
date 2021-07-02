@@ -53,7 +53,7 @@ const profile = (props) => {
   } = usePaginatedPosts(`/api/posts?uid=${uid}`);
 
   const { data: following, error: getFollowingsError } = useSWR<User[]>(
-    uid ? `/api/users/${uid}/following` : null
+    uid ? `/api/users/${uid}/followings` : null
   );
 
   const { data: followers, error: getFollowersError } = useSWR<User[]>(
