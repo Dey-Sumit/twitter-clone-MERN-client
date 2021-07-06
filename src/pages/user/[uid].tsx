@@ -137,7 +137,7 @@ export const getStaticProps: GetStaticProps = async (ctx: GetStaticPropsContext)
 
     return {
       props: { user },
-      revalidate: 3,
+      revalidate: 5,
     };
   } catch (error) {
     return {

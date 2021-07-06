@@ -22,7 +22,6 @@ export default function Home() {
   useEffect(() => {
     setMounted(true); // solves the hydration problem
   }, []);
-  console.log({ posts, error, isValidating });
 
   return (
     <div className="grid grid-cols-8 gap-x-8 ">
