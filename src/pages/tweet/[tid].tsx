@@ -30,7 +30,7 @@ const index = () => {
           <>
             <TweetCard tweet={data} />
             {user ? (
-              <CreateComment tid={tid?.toString()} />
+              <CreateComment tid={tid?.toString()} tweetedBy={data.user._id}/>
             ) : (
               <div className="p-3 text-center">
                 <p>Sign in to talk to the world 😉</p>

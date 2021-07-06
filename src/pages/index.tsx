@@ -25,7 +25,7 @@ export default function Home() {
   return (
     <div className="grid grid-cols-8 gap-x-8 ">
       <div className="col-span-8 md:col-span-5">
-        <div className="h-[90vh] overflow-y-auto feed__wrapper">
+        <div className="h-[90vh] overflow-y-auto">
           {user ? (
             <CreateTweet />
           ) : (

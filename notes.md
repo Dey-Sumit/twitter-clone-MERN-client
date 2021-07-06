@@ -2,8 +2,16 @@ TODO :
 
 tsconfig path mapping : import directly from @components using the index file
 improve auth process | should be faster
-add realtime notification
 improve Tweet Box HashTags
+
+BUGS :
+get posts by user id
+too many api requests
+change dedupings
+add skeletons
+profile update failed with 200!(no profile pic change)
+error on localhost 3000 notifications
+notifications page loading screen
 
 ### Important links
 

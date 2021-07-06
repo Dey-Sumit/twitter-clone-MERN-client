@@ -4,13 +4,18 @@ import { mutate } from "swr";
 import { useAuthState } from "../context/auth.context";
 import { Comment } from "@libs/types";
 import Image from "next/image";
+import { useSocket } from "@context/socket.context";
 const CreateComment: FunctionComponent<{
   tid: string;
-}> = ({ tid }) => {
+  tweetedBy: string;
+}> = ({ tid, tweetedBy }) => {
   const { user } = useAuthState();
+  const socket = useSocket();
+
   const [content, setContent] = useState("");
 
   const handleComment = async (e) => {
+
     e.preventDefault();
     if (content.length === 0) return;
 
@@ -38,8 +43,13 @@ const CreateComment: FunctionComponent<{
     setContent("");
     await axios(`/api/posts/${tid}/comments`, {
       method: "POST",
-      data: content,
+      data: { content },
     });
+    if (tweetedBy !== user._id)
+      socket.emit("NOTIFY", {
+        userTo: tweetedBy,
+        message: `${user.name} commented on your post`,
+      });
 
     mutate(`/api/posts/${tid}`);
   };
@@ -59,8 +69,9 @@ const CreateComment: FunctionComponent<{
             className="w-full h-24 p-2 bg-transparent border rounded-md resize-none border-dark-100 focus:outline-none"
             placeholder="what's your opinion on this post?"
             name="content"
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
           />
-
           <div className="flex p-1 ">
             <button
               className="px-4 py-1 ml-auto font-bold tracking-wide bg-blue-700 rounded-md focus:outline-none"

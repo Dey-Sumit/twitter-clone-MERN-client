@@ -1,3 +1,12 @@
+export interface Notification {
+  _id: string;
+  userFrom: User;
+  notificationType: "follow" | "like" | "comment";
+  entityId: string;
+  read: boolean;
+  createdAt: Date;
+}
+
 export interface User {
   _id: string;
   name: string;

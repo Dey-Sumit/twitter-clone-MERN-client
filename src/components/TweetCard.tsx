@@ -46,7 +46,7 @@ const TweetCard: FunctionComponent<{ tweet: Post }> = ({
 }) => {
   const { pathname } = useRouter();
   const socket = useSocket();
-  
+
   const { user } = useAuthState();
   const dispatch = useLayoutDispatch();
   // const { showDeleteModal, postId } = useLayoutState();
@@ -59,7 +59,6 @@ const TweetCard: FunctionComponent<{ tweet: Post }> = ({
   const [likedByMe, setLikedByMe] = useState<boolean>(likes?.includes(user?._id));
 
   // console.log({likedByMe,likes,user});
-  
 
   const handleLike = async (e: any) => {
     e.stopPropagation();
@@ -70,15 +69,15 @@ const TweetCard: FunctionComponent<{ tweet: Post }> = ({
       return;
     }
     likedByMe ? setLikesCount(likesCount - 1) : setLikesCount(likesCount + 1);
+    // don't send noti if my post is liked by me 🙄
+    if (uid !== user._id && !likedByMe)
+      socket.emit("NOTIFY", {
+        userTo: uid,
+        message: `${user.name} liked your post`,
+      });
+
     setLikedByMe((value) => !value);
-
-    socket.emit("NOTIFY", {
-      userTo: uid,
-      message: `${user.name} liked your post`,
-    });
-
     await axios.put(`/api/posts/${_id}/rate`);
-
   };
   const handleDelete = async (e: any) => {
     e.stopPropagation();

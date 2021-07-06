@@ -15,38 +15,34 @@ axios.defaults.withCredentials = true;
 
 function MyApp({ Component, pageProps }) {
   const { pathname } = useRouter();
-  useEffect(() => {
-    window.onload = function () {
-      document.getElementById("loadingScreen");
-    };
-  }, []);
+  
 
   return (
     <AuthProvider>
       <SnackbarProvider>
-        <SocketProvider>
-          <Head>
-            <title>Twitty : Not Twitter</title>
-            <link rel="icon" href="/favicon.png" />
-          </Head>
-          <LayoutProvider>
-            {pathname !== "/auth" ? (
-              <SWRConfig
-                value={{
-                  fetcher: (url: string) => axios(url).then((r) => r.data),
-                  dedupingInterval: 10000,
-                  revalidateOnFocus: false,
-                }}
-              >
+        <SWRConfig
+          value={{
+            fetcher: (url: string) => axios(url).then((r) => r.data),
+            dedupingInterval: 10000,
+            revalidateOnFocus: false,
+          }}
+        >
+          <SocketProvider>
+            <Head>
+              <title>Twitty : Not Twitter</title>
+              <link rel="icon" href="/favicon.png" />
+            </Head>
+            <LayoutProvider>
+              {pathname !== "/auth" ? (
                 <Layout>
                   <Component {...pageProps} />
                 </Layout>
-              </SWRConfig>
-            ) : (
-              <Component {...pageProps} />
-            )}
-          </LayoutProvider>
-        </SocketProvider>
+              ) : (
+                <Component {...pageProps} />
+              )}
+            </LayoutProvider>
+          </SocketProvider>
+        </SWRConfig>
       </SnackbarProvider>
     </AuthProvider>
   );

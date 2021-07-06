@@ -6,7 +6,9 @@ import Loader from "./Loader";
 import UserCard from "./UserCard";
 
 const People: FunctionComponent<{ noOfElements?: number }> = ({ noOfElements }) => {
-  const { data: users, error } = useSWR<User[]>("/api/users/topUsers");
+  const { data: users, error } = useSWR<User[]>("/api/users/topUsers", {
+    dedupingInterval: 10000,
+  });
 
   return (
     <div className="flex flex-col p-2 space-y-3 divide-y shadow-sm rounded-2xl bg-dark-600 divide-dark-500">

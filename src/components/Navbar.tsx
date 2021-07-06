@@ -28,19 +28,6 @@ const Navbar = () => {
     // setSearchResults([]);
     push(`/user/${uid}`);
   };
-  // useEffect(() => {
-  //   if (query.trim() === "") {
-  //     setSearchResults([]);
-  //     return;
-  //   }
-  //   searchUsers();
-  // }, [query]);
-
-  // const handleSearch = (e) => {
-  //   console.log(e.target.value);
-
-  //   searchUsers();
-  // };
 
   const handleSearch = async (e) => {
     const value = e.target.value;
@@ -96,7 +83,7 @@ const Navbar = () => {
 
         <div
           className={classNames(
-            "absolute left-0 flex flex-col transition-all w-full space-y-1  rounded-lg shadow-md top-8 bg-dark-600 ",
+            "absolute left-0 flex flex-col transition-all w-full space-y-1  rounded-lg shadow-md top-8 bg-dark-600 overflow-y-auto",
             {
               "h-64 opacity-100": showDropDown,
               "h-0 opacity-0": !showDropDown,

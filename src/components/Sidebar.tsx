@@ -6,24 +6,32 @@ import { useAuthDispatch, useAuthState } from "@context/auth.context";
 import { useRouter } from "next/router";
 import axios from "axios";
 
-import { AiOutlineUser } from "react-icons/ai";
 import { useLayoutDispatch, useLayoutState } from "@context/layout.context";
 import { FunctionComponent, MouseEventHandler } from "react";
 import { IconType } from "react-icons";
 import Cookies from "js-cookie";
-import { useState } from "react";
-import { useEffect } from "react";
+
 import useSWR from "swr";
+import { RiUserFill } from "react-icons/ri";
 
 const SidebarItem: FunctionComponent<{
   Icon: IconType;
   text: string;
+  type?: string;
+  badgeData?: number;
   handler?: MouseEventHandler<HTMLDivElement>;
-}> = ({ Icon, text, handler }) => {
+}> = ({ Icon, badgeData, text, handler, type }) => {
   return (
     <div className="navItem" onClick={handler}>
-      <Icon size="25" className="flex-shrink-0" />
-      <span className="hidden lg:block">{text}</span>
+      <div className="relative ">
+        <Icon size="30" className="flex-shrink-0" />
+        {type === "badge" && badgeData > 0 && (
+          <span className="absolute grid w-5 h-5 text-xs text-white bg-blue-600 rounded-full -bottom-1 -right-1 place-items-center">
+            {badgeData > 9 ? "9+" : badgeData}
+          </span>
+        )}
+      </div>
+      <span className="hidden tracking-wide lg:block">{text}</span>
     </div>
   );
 };
@@ -48,7 +56,7 @@ const Sidebar = () => {
   };
   const handleLogout = async (e: any) => {
     e.stopPropagation();
-    authDispatch({ type: "REMOVE_USER" }); // ?NOT NEEDED I guess
+    authDispatch({ type: "REMOVE_USER" });
     router.push("/auth");
     Cookies.remove("user");
     await axios.delete("/api/auth/logout");
@@ -56,8 +64,8 @@ const Sidebar = () => {
       type: "HIDE_CONFIRMATION_MODAL",
     });
   };
-  const getNotifications = () => {};
-  const { data: notifications } = useSWR("/api/notifications");
+  // const getNotifications = () => {};
+  const { data: notifications } = useSWR(user && "/api/notifications?unreadOnly");
 
   return (
     <div
@@ -86,15 +94,17 @@ const Sidebar = () => {
         <SidebarItem Icon={IoMdHome} text="Home" handler={() => router.push("/")} />
         {user && (
           <SidebarItem
-            Icon={AiOutlineUser}
+            Icon={RiUserFill}
             text="Profile"
             handler={() => router.push(`/user/${user._id}`)}
           />
         )}
         {user && (
           <SidebarItem
+            type="badge"
+            badgeData={notifications?.length}
             Icon={IoMdNotifications}
-            text={notifications?.length}
+            text="Notis"
             handler={() => router.push("/notifications/")}
           />
         )}

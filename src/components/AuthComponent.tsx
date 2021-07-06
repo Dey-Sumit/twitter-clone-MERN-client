@@ -46,7 +46,9 @@ const AuthComponent = () => {
       router.push("/");
       cookie.set("user", res.data);
     } catch (error) {
-      setErrorMessage(error.response.data.message);
+      console.log(error.response);
+
+      // setErrorMessage(error.response.data.message);
     } finally {
       setLoading(false);
     }
