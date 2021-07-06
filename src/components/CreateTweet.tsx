@@ -7,7 +7,6 @@ import { Post } from "@libs/types";
 import { usePaginatedPosts } from "@libs/hooks";
 import Image from "next/image";
 import { mutate } from "swr";
-import { useEffect } from "react";
 
 const CreateTweet: FunctionComponent<{}> = () => {
   const [file, setFile] = useState(null);

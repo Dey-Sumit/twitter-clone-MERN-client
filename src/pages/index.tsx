@@ -10,17 +10,19 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useEffect } from "react";
-
+import TweetSkeleton from "@components/skeletons/TweetSkeleton";
 export default function Home() {
   const { push } = useRouter();
 
   const { user } = useAuthState();
-  const { error, posts, page, setPage, isReachingEnd } = usePaginatedPosts("/api/posts/feed");
+  const { error, posts, page, setPage, isReachingEnd, isValidating } =
+    usePaginatedPosts("/api/posts/feed");
 
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
     setMounted(true); // solves the hydration problem
   }, []);
+  console.log({ posts, error, isValidating });
 
   return (
     <div className="grid grid-cols-8 gap-x-8 ">
@@ -36,9 +38,10 @@ export default function Home() {
               </button>
             </div>
           )}
-          {!error && !posts && <Loader />}
-          {error && <h3 className="customText-h3">Could not load the post, Server Error</h3>}
-          {user && posts.length === 0 ? (
+          {!posts && isValidating && [...Array(10)].map((_, i) => <TweetSkeleton key={i} />)}
+
+          {error && <h3 className="customText-h3">Could not load the post, Retrying</h3>}
+          {user && !isValidating && posts.length === 0 ? (
             <h3 className=" customText-h3">
               You don't have any posts in your feed, create one or follow someone!
             </h3>

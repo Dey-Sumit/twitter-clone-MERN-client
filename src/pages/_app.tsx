@@ -15,7 +15,6 @@ axios.defaults.withCredentials = true;
 
 function MyApp({ Component, pageProps }) {
   const { pathname } = useRouter();
-  
 
   return (
     <AuthProvider>
@@ -23,7 +22,8 @@ function MyApp({ Component, pageProps }) {
         <SWRConfig
           value={{
             fetcher: (url: string) => axios(url).then((r) => r.data),
-            dedupingInterval: 10000,
+            dedupingInterval: 100000, // TODO for development
+
             revalidateOnFocus: false,
           }}
         >

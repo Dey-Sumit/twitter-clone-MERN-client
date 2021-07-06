@@ -3,7 +3,7 @@ import Trends from "@components/Trends";
 
 const Explore = () => {
   return (
-    <div className="grid grid-cols-2 gap-6">
+    <div className="grid grid-cols-2 gap-6 py-8">
       <div className="col-span-2 md:col-span-1">
         <Trends />
       </div>

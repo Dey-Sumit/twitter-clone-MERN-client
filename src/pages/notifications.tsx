@@ -4,19 +4,24 @@ import People from "@components/People";
 
 import { Notification } from "@libs/types";
 import useSWR from "swr";
+import NotificationSkeleton from "@components/skeletons/CustomSkeleton";
 
 const notifications = () => {
-  const { data: notifications } = useSWR<Notification[]>("/api/notifications");
+  const { data: notifications, error, isValidating } = useSWR<Notification[]>("/api/notifications");
 
   return (
     <div className="grid grid-cols-8 gap-x-8 ">
       <div className="col-span-8 md:col-span-5 ">
         <div className="h-[90vh] overflow-y-auto">
           <h1 className="my-4 text-xl">Notifications</h1>
+          {!error &&
+            !notifications &&
+            isValidating &&
+            [...Array(10)].map((_, i) => <NotificationSkeleton key={i} />)}
 
           <div className="flex flex-col space-y-3">
             {notifications?.map((notification) => (
-              <NotificationCard notification={notification} key={notification._id}/>
+              <NotificationCard notification={notification} key={notification._id} />
             ))}
           </div>
         </div>
