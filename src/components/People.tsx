@@ -7,9 +7,7 @@ import UserCard from "./UserCard";
 import PeopleSkeleton from "@components/skeletons/PeopleSkeleton";
 
 const People: FunctionComponent<{ noOfElements?: number }> = ({ noOfElements }) => {
-  const { data: users, error } = useSWR<User[]>("/api/users/topUsers", {
-    dedupingInterval: 10000,
-  });
+  const { data: users, error } = useSWR<User[]>("/api/users/topUsers");
 
   return (
     <div className="flex flex-col p-2 space-y-3 divide-y shadow-sm rounded-2xl bg-dark-600 divide-dark-500">

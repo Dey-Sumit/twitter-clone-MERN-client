@@ -3,7 +3,7 @@ TODO :
 tsconfig path mapping : import directly from @components using the index file
 improve auth process | should be faster
 improve Tweet Box HashTags
-
+next lint
 BUGS :
 get posts by user id
 too many api requests
