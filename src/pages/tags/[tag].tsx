@@ -9,7 +9,7 @@ interface IData {
   posts: Post[];
   name: string;
 }
-const index = () => {
+const TagPage = () => {
   const {
     query: { tag },
   } = useRouter();
@@ -76,4 +76,4 @@ const index = () => {
 
 // you can use ISR here , cause if some people see the tweets after some delay,that's not an issue at all in 1 million user's webapp
 
-export default index;
+export default TagPage;

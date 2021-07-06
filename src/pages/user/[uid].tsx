@@ -15,13 +15,13 @@ import Error from "@components/Error";
 import { useAuthState } from "@context/auth.context";
 import { useLayoutDispatch } from "@context/layout.context";
 
-const profile = (props) => {
+const Profile = (props) => {
   const { user: profileData } = props;
   const {
     isFallback,
     query: { uid },
   } = useRouter();
-  // const profileDataError = false; // TODO
+  // const profileDataError = false;
   // console.log({ profileData });
 
   // if (isFallback) {
@@ -44,21 +44,13 @@ const profile = (props) => {
     }
     setCurrentTab(value);
   };
-  const {
-    error: getPostsError,
-    posts,
-    page,
-    setPage,
-    isReachingEnd,
-  } = usePaginatedPosts(uid ? `/api/posts?uid=${uid}` : null);
-
-  const { data: following, error: getFollowingsError } = useSWR<User[]>(
-    uid ? `/api/users/${uid}/followings` : null
+  const { posts, page, setPage, isReachingEnd } = usePaginatedPosts(
+    uid ? `/api/posts?uid=${uid}` : null
   );
 
-  const { data: followers, error: getFollowersError } = useSWR<User[]>(
-    uid ? `/api/users/${uid}/followers` : null
-  );
+  const { data: following } = useSWR<User[]>(uid ? `/api/users/${uid}/followings` : null);
+
+  const { data: followers } = useSWR<User[]>(uid ? `/api/users/${uid}/followers` : null);
 
   // TODO looks like you don't have a profile :) show funny image ; don't redirect
   return (
@@ -119,7 +111,7 @@ const profile = (props) => {
             ) : followers.length === 0 ? (
               <h1 className="customText-h3">You don't have any followers</h1>
             ) : (
-              followers.map((user) => <UserCard user={user} showFollowButton={true} />)
+              followers.map((user) => <UserCard user={user} showFollowButton={true} key={user._id}/>)
             ))}
 
           {currentTab === "following" &&
@@ -128,7 +120,7 @@ const profile = (props) => {
             ) : following.length === 0 ? (
               <h1 className="customText-h3">You are not following anyone</h1>
             ) : (
-              following.map((user) => <UserCard user={user} showFollowButton={true} />)
+              following.map((user) => <UserCard user={user} showFollowButton={true} key={user._id}/>)
             ))}
         </div>
       </div>
@@ -136,7 +128,7 @@ const profile = (props) => {
   );
 };
 
-export default profile;
+export default Profile;
 
 export const getStaticProps: GetStaticProps = async (ctx: GetStaticPropsContext) => {
   const uid = ctx.params.uid;

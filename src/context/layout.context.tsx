@@ -27,7 +27,7 @@ interface IAction {
   payload?: IModalData;
 }
 
-// create two context; one for the state and one for the dispatchs
+// create two context; one for the state and one for the dispatch
 const StateContext = createContext<IState>(undefined);
 
 const DispatchContext = createContext<React.Dispatch<IAction>>(null);

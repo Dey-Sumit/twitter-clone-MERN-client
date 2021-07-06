@@ -1,4 +1,3 @@
-import { FunctionComponent } from "react";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 const HashtagSkeleton = () => {
   return (

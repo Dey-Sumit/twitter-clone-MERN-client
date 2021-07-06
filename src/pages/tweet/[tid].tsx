@@ -6,7 +6,7 @@ import { Post } from "@libs/types";
 import Loader from "@components/Loader";
 import { useAuthState } from "@context/auth.context";
 
-const index = () => {
+const TweetPage = () => {
   const { user } = useAuthState();
 
   const router = useRouter();
@@ -55,4 +55,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default TweetPage;

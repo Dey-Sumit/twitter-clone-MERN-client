@@ -4,17 +4,16 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { BsImageFill } from "react-icons/bs";
-import useSWR, { mutate } from "swr";
+import { mutate } from "swr";
 
 import Input from "@components/Input";
-import { useAuthDispatch, useAuthState } from "@context/auth.context";
+import { useAuthDispatch } from "@context/auth.context";
 
-import Loader from "@components/Loader";
 import Cookies from "js-cookie";
 import { BiLoaderAlt } from "react-icons/bi";
 import { User } from "@libs/types";
 
-const profile: NextPage<{ user: User }> = ({ user }) => {
+const EditProfile: NextPage<{ user: User }> = ({ user }) => {
   const { push } = useRouter();
   const dispatch = useAuthDispatch();
   const [picture, setPicture] = useState("");
@@ -73,6 +72,8 @@ const profile: NextPage<{ user: User }> = ({ user }) => {
           <h1 className="textCustom-h3">Edit Profile</h1>
 
           <div className="relative">
+            {/* //TODO use Next Image  */}
+            {/* eslint-disable-next-line */} 
             <img
               src={picture || user?.profilePicture}
               alt="profile picture"
@@ -137,7 +138,7 @@ const profile: NextPage<{ user: User }> = ({ user }) => {
   );
 };
 
-export default profile;
+export default EditProfile;
 // TODO make this function reusable
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   try {

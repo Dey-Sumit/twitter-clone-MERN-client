@@ -1,7 +1,6 @@
 import useSWR from "swr";
 import { Tag } from "@libs/types";
 import { FunctionComponent } from "react";
-import Loader from "./Loader";
 import TagCard from "./TagCard";
 import HashtagSkeleton from "./skeletons/HashTagSkeleton";
 

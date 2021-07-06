@@ -6,7 +6,7 @@ import axios from "axios";
 import classNames from "classnames";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { BiSearchAlt } from "react-icons/bi";
 import { MdCancel } from "react-icons/md";
 import { SiTwitter } from "react-icons/si";
@@ -113,6 +113,7 @@ const Navbar = () => {
                 setSearchResults(null);
                 goToUser(user._id);
               }}
+              key={user._id}
             >
               <Image
                 width={38}

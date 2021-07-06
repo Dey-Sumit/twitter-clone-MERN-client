@@ -7,7 +7,6 @@ import { SWRConfig } from "swr";
 import { LayoutProvider } from "@context/layout.context";
 import Layout from "@components/Layout";
 import Head from "next/head";
-import { useEffect } from "react";
 import { SocketProvider } from "@context/socket.context";
 
 axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_BASE_ENDPOINT; // the prefix of the URL only for the client side

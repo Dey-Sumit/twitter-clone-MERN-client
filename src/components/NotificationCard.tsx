@@ -55,7 +55,7 @@ const NotificationCard: FunctionComponent<{ notification: Notification }> = ({
         {notificationType === "like" && <FcLike size={25} />}
         {notificationType === "comment" && <FcComments size={25} />}
         <div>
-          <Image src={profilePicture} height={40} width={40} className="rounded-full" />
+          <Image src={profilePicture} height={40} width={40} className="rounded-full" alt=""/>
         </div>
 
         <span>{notificationText}</span>

@@ -1,12 +1,11 @@
 import { User } from "@libs/types";
-import { useRouter } from "next/router";
 import { FunctionComponent } from "react";
 import useSWR from "swr";
 import Loader from "./Loader";
 import UserCard from "./UserCard";
 
 const Followers: FunctionComponent<{ userId: string }> = ({ userId }) => {
-  const { data: followers, error: getFollowersError } = useSWR<User[]>(
+  const { data: followers } = useSWR<User[]>(
     `/api/users/${userId}/followers`
   );
 
@@ -15,7 +14,7 @@ const Followers: FunctionComponent<{ userId: string }> = ({ userId }) => {
       {!followers ? (
         <Loader />
       ) : (
-        followers.map((user) => <UserCard user={user} showFollowButton={true} />)
+        followers.map((user) => <UserCard user={user} showFollowButton={true} key={user._id}/>)
       )}
     </div>
   );

@@ -1,7 +1,7 @@
 import AuthComponent from "@components/AuthComponent";
 import { useAuthState } from "@context/auth.context";
 import { useLayoutDispatch, useLayoutState } from "@context/layout.context";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 const AuthModal = () => {
   const { showAuthModal } = useLayoutState();
@@ -12,7 +12,7 @@ const AuthModal = () => {
       dispatch({
         type: "HIDE_AUTH_MODAL",
       });
-  }, [user]);
+  }, [user,dispatch]);
   return (
     <div
       className={`${showAuthModal ? "scale-100 " : "scale-0 "} ${

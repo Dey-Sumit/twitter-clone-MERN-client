@@ -1,8 +1,6 @@
 import { User } from "@libs/types";
-import { useRouter } from "next/router";
 import { FunctionComponent } from "react";
 import useSWR from "swr";
-import Loader from "./Loader";
 import UserCard from "./UserCard";
 import PeopleSkeleton from "@components/skeletons/PeopleSkeleton";
 

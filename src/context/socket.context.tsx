@@ -1,5 +1,5 @@
 import { useSnackbar } from "notistack";
-import React, { createContext, Dispatch, useContext, useEffect, useReducer, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import io, { Socket } from "socket.io-client";
 import useSWR from "swr";
 import { useAuthState } from "./auth.context";
@@ -13,7 +13,7 @@ export const SocketProvider = ({ children }) => {
     revalidateOnMount: false,
   });
 
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
   const { user } = useAuthState();
   const [socket, setSocket] = useState<Socket>(null);
 

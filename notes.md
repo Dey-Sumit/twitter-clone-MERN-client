@@ -7,7 +7,7 @@ next lint
 BUGS :
 get posts by user id
 too many api requests
-change dedupings
+change deduping
 add skeletons
 profile update failed with 200!(no profile pic change)
 error on localhost 3000 notifications

@@ -16,8 +16,7 @@ export const usePaginatedPosts = (URL: string) => {
     newURL = newURL.replace("&", "?");
     return newURL;
   });
-  // /api/feed?uid = dsakdl?page=1
-  // `/api/posts?page=${index}`
+ 
 
   const posts: Post[] = data ? [].concat(...data.map((paginatedPost) => paginatedPost.posts)) : [];
 

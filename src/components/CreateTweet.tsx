@@ -14,7 +14,7 @@ const CreateTweet: FunctionComponent<{}> = () => {
   const [content, setContent] = useState("");
   const { mutate: paginatedPostsMutate } = usePaginatedPosts("/api/posts/feed");
 
-  const { user, loading } = useAuthState();
+  const { user } = useAuthState();
 
   const onChangePicture = (e: ChangeEvent<HTMLInputElement>) => {
     setFile(e.target.files[0]);
@@ -111,6 +111,7 @@ const CreateTweet: FunctionComponent<{}> = () => {
             </div>
             {file && (
               <div className="relative mt-2">
+                {/*eslint-disable-next-line */}
                 <img
                   src={URL.createObjectURL(file)}
                   alt=" attachment"

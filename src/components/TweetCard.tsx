@@ -13,7 +13,6 @@ import { usePaginatedPosts } from "@libs/hooks";
 import { useAuthState } from "@context/auth.context";
 import { useLayoutDispatch } from "@context/layout.context";
 import { useSocket } from "@context/socket.context";
-import { useSnackbar } from "notistack";
 
 const Hash: FunctionComponent<{ children: string }> = ({ children }) => {
   const { push } = useRouter();
@@ -152,7 +151,9 @@ const TweetCard: FunctionComponent<{ tweet: Post }> = ({
         {attachmentURL && (
           <div className="relative  h-[280px] mx-auto tweetCardImage__wrapper">
             {/* //! Next image does not support blob */}
+
             {clientOnly ? (
+              // eslint-disable-next-line
               <img
                 src={attachmentURL}
                 alt="attachment"

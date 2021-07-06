@@ -31,7 +31,7 @@ const AuthComponent = () => {
 
   const handleAuth = async (data: any) => {
     const url = isLogin ? "/api/auth/login" : "/api/auth/signup";
-    console.log({ url });
+   
 
     try {
       setLoading(true);
@@ -46,9 +46,9 @@ const AuthComponent = () => {
       router.push("/");
       cookie.set("user", res.data);
     } catch (error) {
-      console.log(error.response);
+    //  console.log(error.response);
 
-      // setErrorMessage(error.response.data.message);
+      setErrorMessage(error.response.data.message);
     } finally {
       setLoading(false);
     }

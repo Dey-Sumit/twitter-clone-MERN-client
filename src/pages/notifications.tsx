@@ -6,7 +6,7 @@ import { Notification } from "@libs/types";
 import useSWR from "swr";
 import NotificationSkeleton from "@components/skeletons/CustomSkeleton";
 
-const notifications = () => {
+const Notifications = () => {
   const { data: notifications, error, isValidating } = useSWR<Notification[]>("/api/notifications");
 
   return (
@@ -34,4 +34,4 @@ const notifications = () => {
   );
 };
 
-export default notifications;
+export default Notifications;
