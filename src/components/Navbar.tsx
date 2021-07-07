@@ -6,7 +6,7 @@ import axios from "axios";
 import classNames from "classnames";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import {  useState } from "react";
+import { useState } from "react";
 import { BiSearchAlt } from "react-icons/bi";
 import { MdCancel } from "react-icons/md";
 import { SiTwitter } from "react-icons/si";
@@ -63,7 +63,7 @@ const Navbar = () => {
     <div className="sticky top-0 left-0 z-10 flex items-center h-[10vh] justify-between p-3 space-x-4 bg-dark-600 text-dark-100 md:px-10 lg:px-16">
       <SiTwitter
         className="text-blue-600 cursor-pointer sm:hidden"
-        size="24"
+        size="40"
         onClick={() => dispatch({ type: "TOGGLE_NAVBAR" })}
       />
       {/* search bar */}

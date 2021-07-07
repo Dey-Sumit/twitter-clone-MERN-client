@@ -27,6 +27,7 @@ const reducer = (state: IState, { type, payload }: IAction) => {
       };
 
     case "REMOVE_USER":
+      Cookies.remove("user");
       return {
         ...state,
         user: null,

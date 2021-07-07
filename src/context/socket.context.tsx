@@ -6,21 +6,21 @@ import { useAuthState } from "./auth.context";
 
 const SocketContext = createContext<Socket>(null);
 export const SocketProvider = ({ children }) => {
-  const { mutate: unreadNotificationMutate } = useSWR("/api/notifications?unreadOnly", {
+  const { user } = useAuthState();
+  const { mutate: unreadNotificationMutate } = useSWR(user && "/api/notifications?unreadOnly", {
     revalidateOnMount: false,
   });
-  const { mutate: allNotificationMutate } = useSWR("/api/notifications", {
+  const { mutate: allNotificationMutate } = useSWR(user && "/api/notifications", {
     revalidateOnMount: false,
   });
 
   const { enqueueSnackbar } = useSnackbar();
-  const { user } = useAuthState();
   const [socket, setSocket] = useState<Socket>(null);
 
   useEffect(() => {
-    if (socket && !socket.connected) {
-      const x = socket.connect();
-      setSocket(x);
+    if (user && socket && !socket.connected) {
+      setSocket(socket.connect());
+      return;
     }
     if (user && !socket) {
       const temp_socket = io(process.env.NEXT_PUBLIC_API_BASE_ENDPOINT, {
@@ -47,7 +47,7 @@ export const SocketProvider = ({ children }) => {
         setSocket(null);
       }
     };
-  }, [user]);
+  }, [user, socket]);
 
   return <SocketContext.Provider value={socket}>{children}</SocketContext.Provider>;
 };

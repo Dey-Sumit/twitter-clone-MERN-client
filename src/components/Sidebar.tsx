@@ -9,10 +9,10 @@ import axios from "axios";
 import { useLayoutDispatch, useLayoutState } from "@context/layout.context";
 import { FunctionComponent, MouseEventHandler } from "react";
 import { IconType } from "react-icons";
-import Cookies from "js-cookie";
 
 import useSWR from "swr";
 import { RiUserFill } from "react-icons/ri";
+import { useSocket } from "@context/socket.context";
 
 const SidebarItem: FunctionComponent<{
   Icon: IconType;
@@ -41,7 +41,7 @@ const Sidebar = () => {
   const authDispatch = useAuthDispatch();
   const { user } = useAuthState();
   const { showNavbar } = useLayoutState();
-
+  const socket = useSocket();
   const router = useRouter();
 
   const showModal = async () => {
@@ -56,9 +56,11 @@ const Sidebar = () => {
   };
   const handleLogout = async (e: any) => {
     e.stopPropagation();
+    socket.disconnect();
     authDispatch({ type: "REMOVE_USER" });
+
     router.push("/auth");
-    Cookies.remove("user");
+
     await axios.delete("/api/auth/logout");
     layoutDispatch({
       type: "HIDE_CONFIRMATION_MODAL",
@@ -78,7 +80,7 @@ const Sidebar = () => {
           <a>
             <SiTwitter
               className="text-blue-600 cursor-pointer "
-              size="28"
+              size="30"
               onClick={() => layoutDispatch({ type: "TOGGLE_NAVBAR" })}
             />
           </a>
