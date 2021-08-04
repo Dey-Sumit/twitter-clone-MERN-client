@@ -5,30 +5,29 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { BsImageFill } from "react-icons/bs";
 import { mutate } from "swr";
+import Cookies from "js-cookie";
 
 import Input from "@components/Input";
 import { useAuthDispatch } from "@context/auth.context";
-
-import Cookies from "js-cookie";
-import { BiLoaderAlt } from "react-icons/bi";
 import { User } from "@libs/types";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { profileSchema } from "@libs/schemaValidation";
 
 const EditProfile: NextPage<{ user: User }> = ({ user }) => {
   const { push } = useRouter();
   const dispatch = useAuthDispatch();
-  const [picture, setPicture] = useState("");
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+    watch,
+  } = useForm({
+    mode: "onTouched",
+    resolver: yupResolver(profileSchema),
+  });
 
   const [isUpdating, setIsUpdating] = useState(false);
-
-  const onChangePicture = (e: any) => {
-    setPicture(URL.createObjectURL(e.target.files[0]));
-  };
 
   //TODO validation using yup
   const onSubmit = async (data) => {
@@ -61,9 +60,8 @@ const EditProfile: NextPage<{ user: User }> = ({ user }) => {
     push(`/user/${user._id}`);
   };
 
-  // TODO looks like you don't have a profile :) show funny image ; don't redirect
   return (
-    <div className="grid grid-cols-8 gap-8 ">
+    <div className="grid grid-cols-8 gap-8 py-4">
       <div className="col-span-12 p-2">
         <form
           className="flex flex-col w-full mx-auto mt-5 space-y-3 md:w-6/12"
@@ -72,28 +70,24 @@ const EditProfile: NextPage<{ user: User }> = ({ user }) => {
           <h1 className="textCustom-h3">Edit Profile</h1>
 
           <div className="relative">
-            {/* //TODO use Next Image  */}
-            {/* eslint-disable-next-line */} 
+            {/* //! https://github.com/vercel/next.js/discussions/19732  */}
+            {/* eslint-disable-next-line */}
             <img
-              src={picture || user?.profilePicture}
+              src={
+                watch("profilePicture")?.[0]
+                  ? URL.createObjectURL(watch("profilePicture")?.[0])
+                  : user?.profilePicture
+              }
               alt="profile picture"
-              className="w-40 h-40 mx-auto border rounded-full cursor-pointer border-3 inset-1/2"
+              className="w-40 h-40 mx-auto border rounded-full border-3 inset-1/2"
             />
-
             <label htmlFor="file-input">
               <BsImageFill
                 size="20"
-                className="absolute w-10 h-10 transform -translate-x-1/2 -translate-y-1/2 border inset-1/2 "
+                className="absolute w-10 h-10 transform -translate-x-1/2 -translate-y-1/2 border cursor-pointer inset-1/2 "
               />
             </label>
-            <input
-              id="file-input"
-              {...register("profilePicture")}
-              onChange={onChangePicture}
-              type="file"
-              name="profilePicture"
-              className="hidden"
-            />
+            <Input id="file-input" register={register} fieldName="profilePicture" type="file" />
           </div>
           <div className="flex flex-col space-y-3 ">
             <Input
@@ -110,7 +104,7 @@ const EditProfile: NextPage<{ user: User }> = ({ user }) => {
               label="Bio"
               defaultValue={user?.bio}
               placeholder="bio"
-              error={errors.name}
+              error={errors.bio}
             />
             <Input
               register={register}
@@ -121,16 +115,11 @@ const EditProfile: NextPage<{ user: User }> = ({ user }) => {
               error={errors.username}
             />
           </div>
-          {/* uploadImage */}
-
-          <button type="submit" className="button hover:bg-transparent hover:text-blue-600">
-            {isUpdating ? (
-              <>
-                <BiLoaderAlt className="mr-2 animate-spin" /> Updating
-              </>
-            ) : (
-              "Update Profile"
-            )}
+          <button
+            type="submit"
+            className="border border-blue-600 button hover:bg-transparent hover:text-blue-600"
+          >
+            {isUpdating ? "Updating" : "Update Profile"}
           </button>
         </form>
       </div>
