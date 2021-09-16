@@ -1,34 +1,58 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Twitty : Social Media Like Twitter | Version 1
 
-## Getting Started
+### Tech Used :
+#### Frontend : React , Next Js, TypeScript, Tailwind CSS, Socket , SWR
+#### Backend : Express, Mongo, Socket & Love 💙 
 
-First, run the development server:
+
+### Features : 
+ - Fully Authenticated using Express Session and Passport
+ - Tweet with tags and images
+ - Like , dislike post, add comments
+ - Search User by username or name
+ - CRUD on User Profile
+ - API caching using SWR
+ - Realtime Notification using socket io
+ - Fully Reponsive UI
+ - Coming Soon!!! Check out Verion 2 : Features Listed 
+
+📌 Backend Code : https://github.com/Dey-Sumit/twitter-clone-MERN-server
+
+![](https://github.com/Dey-Sumit/portfolio-v2/blob/main/public/images/projects/twitty.png)
+
+## Installation & Run
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## The Project is deployed on Vercel :
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+[🚀  twitty-blue.vercel.app ](https://twitty-blue.vercel.app/)
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+## TODO for version 2
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+- [ ] Add mention feature
+- [ ] Add Retweet feature
+- [ ] Ability to Share on Social Media 
+- [ ] Add Husky
+- [ ] Add Google Analytics
+- [ ] Add DM 
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+## Contributing
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## Contact
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Sumit Dey- [code.sumax@gmail.com](mailto:code.sumax@gmail.com)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Youtube Channel: [https://www.youtube.com/c/BackbenchCoder](https://www.youtube.com/c/BackbenchCoder)
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
