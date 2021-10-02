@@ -62,8 +62,8 @@ const Navbar = () => {
   return (
     <div className="sticky top-0 left-0 z-10 flex items-center h-[10vh] justify-between p-3 space-x-4 bg-dark-600 text-dark-100 md:px-10 lg:px-16">
       <SiTwitter
-        className="text-blue-600 cursor-pointer sm:hidden"
-        size="40"
+        className="flex-shrink-0 text-blue-600 cursor-pointer sm:hidden"
+        size="28"
         onClick={() => dispatch({ type: "TOGGLE_NAVBAR" })}
       />
       {/* search bar */}
@@ -77,9 +77,7 @@ const Navbar = () => {
           onClick={() => setShowDropDown(true)}
           value={query}
         />
-        {showDropDown && (
-          <MdCancel className="cursor-pointer" size={25} onClick={() => setShowDropDown(false)} />
-        )}
+        {showDropDown && <MdCancel className="cursor-pointer" size={25} onClick={() => setShowDropDown(false)} />}
 
         <div
           className={classNames(
@@ -92,9 +90,7 @@ const Navbar = () => {
           style={{ marginLeft: 0 }}
         >
           {!query.length && (
-            <span className="grid h-full place-items-center">
-              Search Users by username or names (๑◔‿◔๑)
-            </span>
+            <span className="grid h-full place-items-center">Search Users by username or names (๑◔‿◔๑)</span>
           )}
           {!loading && searchResults && !searchResults.length && (
             <span className="grid h-full place-items-center">No User Found ( ^_^)／</span>
@@ -115,13 +111,7 @@ const Navbar = () => {
               }}
               key={user._id}
             >
-              <Image
-                width={38}
-                height={38}
-                src={user?.profilePicture}
-                alt=""
-                className="rounded-full "
-              />
+              <Image width={38} height={38} src={user?.profilePicture} alt="" className="rounded-full " />
               <div>
                 <p>{user.name}</p>
                 <p className="text-blue-700">{user.username}</p>
@@ -133,10 +123,7 @@ const Navbar = () => {
 
       {!user ? (
         // <div className="flex space-x-3">
-        <button
-          onClick={() => push("/auth")}
-          className="flex-shrink-0 p-1 text-blue-600 border border-blue-600"
-        >
+        <button onClick={() => push("/auth")} className="flex-shrink-0 p-1 text-blue-600 border border-blue-600">
           Log in
         </button>
       ) : (
@@ -149,10 +136,10 @@ const Navbar = () => {
           <Image
             width={40}
             height={40}
-            layout="fixed"
+            layout="intrinsic"
             src={user?.profilePicture}
             alt=""
-            className="rounded-full "
+            className="w-8 h-8 rounded-full md:w-10 md:h-10 "
           />
         </div>
       )}

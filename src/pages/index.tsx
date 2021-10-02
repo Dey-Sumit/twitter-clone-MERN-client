@@ -15,8 +15,7 @@ export default function Home() {
   const { push } = useRouter();
 
   const { user } = useAuthState();
-  const { error, posts, page, setPage, isReachingEnd, isValidating } =
-    usePaginatedPosts("/api/posts/feed");
+  const { error, posts, page, setPage, isReachingEnd, isValidating } = usePaginatedPosts("/api/posts/feed");
 
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
@@ -40,11 +39,8 @@ export default function Home() {
           {!posts && isValidating && [...Array(10)].map((_, i) => <TweetSkeleton key={i} />)}
 
           {error && <h3 className="customText-h3">Could not load the post, Retrying</h3>}
-          {user && !isValidating && posts.length === 0 ? (
-            <h3 className=" customText-h3">
-              You don't have any posts in your feed, create one or follow someone!
-            </h3>
-          ) : (
+          {user?.following.length === 0 && <h3 className="customText-h3">Tweets You might like!</h3>}
+          {user && !isValidating && (
             <InfiniteScroll
               dataLength={posts.length}
               next={() => setPage(page + 1)}

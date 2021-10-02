@@ -14,6 +14,12 @@ import { useLayoutDispatch } from "@context/layout.context";
 import Cookies from "js-cookie";
 import { useSocket } from "@context/socket.context";
 
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+import { sweetAlertOptions } from "@libs/sweetAlert";
+import { SiTwitter } from "react-icons/si";
+const MySwal = withReactContent(Swal);
+
 const ProfileCard: FunctionComponent<{ profileData: User }> = ({ profileData }) => {
   const { push, query } = useRouter();
 
@@ -65,28 +71,25 @@ const ProfileCard: FunctionComponent<{ profileData: User }> = ({ profileData }) 
   };
 
   const handleDeleteProfile = async () => {
-    try {
-      await axios.delete(`/api/users/${profileData._id}`);
-      Cookies.remove("user");
-      layoutDispatch({
-        type: "HIDE_CONFIRMATION_MODAL",
-      });
-      authDispatch({
-        type: "REMOVE_USER",
-      });
-
-      push("/auth");
-    } catch (error) {}
-  };
-
-  const showModal = async () => {
-    layoutDispatch({
-      type: "SHOW_CONFIRMATION_MODAL",
-      payload: {
-        subTitle: "Account Delete?",
-        handleConfirmation: handleDeleteProfile,
-        buttonText: "Delete",
-      },
+    // try {
+    MySwal.fire({
+      title: (
+        <div>
+          <p className="mb-2 text-xl text-white">Delete Account?</p>
+          <p className="mb-4 text-sm text-gray-200">Good! Do it for all the socials!</p>
+        </div>
+      ),
+      ...sweetAlertOptions,
+      iconHtml: <SiTwitter className="w-10 h-10 text-gray-200" />,
+    }).then(async (data) => {
+      if (data.isConfirmed) {
+        authDispatch({ type: "REMOVE_USER" });
+        await axios.delete(`/api/users/${profileData._id}`);
+        Cookies.remove("user");
+        socket.disconnect();
+        push("/auth");
+        await axios.delete("/api/auth/logout");
+      }
     });
   };
 
@@ -149,7 +152,7 @@ const ProfileCard: FunctionComponent<{ profileData: User }> = ({ profileData }) 
 
           <button
             className="flex items-center justify-center p-2 space-x-2 text-white bg-red-600 rounded-sm cursor-pointer"
-            onClick={showModal}
+            onClick={handleDeleteProfile}
           >
             <MdDelete /> <span> Delete Account </span>
           </button>

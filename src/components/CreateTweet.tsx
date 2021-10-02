@@ -8,11 +8,14 @@ import { usePaginatedPosts } from "@libs/hooks";
 import Image from "next/image";
 import { mutate } from "swr";
 
+import { useSnackbar } from "notistack";
+
 const CreateTweet: FunctionComponent<{}> = () => {
   const [file, setFile] = useState(null);
   const [tags, setTags] = useState<string[]>([]);
   const [content, setContent] = useState("");
   const { mutate: paginatedPostsMutate } = usePaginatedPosts("/api/posts/feed");
+  const { enqueueSnackbar } = useSnackbar();
 
   const { user } = useAuthState();
 
@@ -58,13 +61,21 @@ const CreateTweet: FunctionComponent<{}> = () => {
     if (tags.length > 0) formData.append("tags", tags.join(",").replaceAll("#", ""));
     if (file) formData.append("attachment", file);
 
-    await axios("/api/posts", {
-      method: "POST",
-      data: formData,
-    });
+    try {
+      await axios("/api/posts", {
+        method: "POST",
+        data: formData,
+      });
 
-    paginatedPostsMutate();
-    mutate("/api/tags");
+      enqueueSnackbar("Tweet Created Successfully", {
+        autoHideDuration: 1000,
+      });
+      paginatedPostsMutate();
+      mutate("/api/tags");
+    } catch (error) {
+      enqueueSnackbar("Sorry, Something went wrong :( ");
+      paginatedPostsMutate();
+    }
   };
 
   const handleChange = (e) => {
@@ -75,7 +86,7 @@ const CreateTweet: FunctionComponent<{}> = () => {
 
   return (
     user && (
-      <div className="flex p-2 space-x-2">
+      <div className="flex p-2 space-x-4">
         <Image
           width={44}
           height={44}
@@ -89,12 +100,10 @@ const CreateTweet: FunctionComponent<{}> = () => {
 
         <div className="flex-1">
           <form onSubmit={handleTweet}>
-            <div
-              className={`border-2 ${content.length < 100 ? "border-dark-100" : "border-red-500"}`}
-            >
+            <div className={`border border-gray-100 ${content.length < 100 ? "border-dark-100" : "border-red-500"}`}>
               <textarea
                 // ref={register}
-                className="w-full h-24 p-2 text-lg bg-transparent rounded-md focus:outline-none"
+                className="w-full h-24 p-2 text-sm bg-transparent rounded-md md:text-base focus:outline-none"
                 placeholder={user && `Hey ${user?.username}, what's going on?`}
                 name="text"
                 value={content}

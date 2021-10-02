@@ -17,6 +17,8 @@ const TagPage = () => {
   } = useRouter();
 
   const { data } = useSWR<IData>(tag ? `/api/tags/${tag}` : null);
+  console.log({ data });
+
   if (data?.posts?.length === 0) {
     return <h3 className="textCustom-h3">{`There are no posts under ${tag}`}</h3>;
   }
@@ -27,7 +29,7 @@ const TagPage = () => {
         <title>Tweety/{tag}</title>
       </Head>
       <div className="col-span-8 md:col-span-5">
-        {data.posts ? (
+        {data?.posts ? (
           <>
             <div className="flex justify-between p-2 text-2xl font-semibold">
               <span>#{tag}</span> <span> {data.posts.length} Tweets</span>{" "}

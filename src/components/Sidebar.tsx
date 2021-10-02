@@ -14,6 +14,12 @@ import useSWR from "swr";
 import { RiUserFill } from "react-icons/ri";
 import { useSocket } from "@context/socket.context";
 
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+import { sweetAlertOptions } from "@libs/sweetAlert";
+import { FaGithubAlt } from "react-icons/fa";
+const MySwal = withReactContent(Swal);
+
 const SidebarItem: FunctionComponent<{
   Icon: IconType;
   text: string;
@@ -44,28 +50,26 @@ const Sidebar = () => {
   const socket = useSocket();
   const router = useRouter();
 
-  const showModal = async () => {
-    layoutDispatch({
-      type: "SHOW_CONFIRMATION_MODAL",
-      payload: {
-        subTitle: "Great!!! Focus on your real life",
-        handleConfirmation: handleLogout,
-        buttonText: "Log out",
-      },
-    });
-  };
   const handleLogout = async (e: any) => {
-    e.stopPropagation();
-    socket.disconnect();
-    authDispatch({ type: "REMOVE_USER" });
-
-    router.push("/auth");
-
-    await axios.delete("/api/auth/logout");
-    layoutDispatch({
-      type: "HIDE_CONFIRMATION_MODAL",
+    MySwal.fire({
+      title: (
+        <div>
+          <p className="mb-2 text-xl text-white">Are You Sure?</p>
+          <p className="mb-4 text-sm text-gray-200">Good! Focus on Real Life</p>
+        </div>
+      ),
+      ...sweetAlertOptions,
+      iconHtml: <SiTwitter className="w-10 h-10 text-gray-200" />,
+    }).then(async (data) => {
+      if (data.isConfirmed) {
+        authDispatch({ type: "REMOVE_USER" });
+        socket.disconnect();
+        router.push("/auth");
+        await axios.delete("/api/auth/logout");
+      }
     });
   };
+
   // const getNotifications = () => {};
   const { data: notifications } = useSWR(user && "/api/notifications?unreadOnly");
 
@@ -94,13 +98,7 @@ const Sidebar = () => {
         }}
       >
         <SidebarItem Icon={IoMdHome} text="Home" handler={() => router.push("/")} />
-        {user && (
-          <SidebarItem
-            Icon={RiUserFill}
-            text="Profile"
-            handler={() => router.push(`/user/${user._id}`)}
-          />
-        )}
+        {user && <SidebarItem Icon={RiUserFill} text="Profile" handler={() => router.push(`/user/${user._id}`)} />}
         {user && (
           <SidebarItem
             type="badge"
@@ -111,9 +109,14 @@ const Sidebar = () => {
           />
         )}
         <SidebarItem Icon={MdExplore} text="Explore" handler={() => router.push("/explore")} />
-        {/* <SidebarItem Icon={MdNotifications} text="Notifications" /> */}
 
-        {user && <SidebarItem Icon={IoMdLogOut} text="LogOut" handler={showModal} />}
+        <SidebarItem
+          Icon={FaGithubAlt}
+          text="GitHub"
+          handler={() => window.open("https://github.com/Dey-Sumit/twitter-clone-MERN-client", "_blank")}
+        />
+
+        {user && <SidebarItem Icon={IoMdLogOut} text="LogOut" handler={handleLogout} />}
       </div>
       <div></div>
     </div>

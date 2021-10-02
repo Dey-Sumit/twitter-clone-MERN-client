@@ -5,18 +5,16 @@ import { useLayoutState } from "@context/layout.context";
 import Overlay from "./Overlay";
 import ConfirmationModal from "./modals/ConfirmationModal";
 import AuthModal from "./modals/AuthModal";
+import { useAuthState } from "@context/auth.context";
+import SplashScreen from "./layouts/SplashScreen";
 const Layout = ({ children }) => {
   const { showAuthModal, showConfirmationModal } = useLayoutState();
+  const { loading } = useAuthState();
 
+  if (loading) return <SplashScreen />;
   return (
     <div className="flex ">
-      <NextNprogress
-        color="#29D"
-        startPosition={0.3}
-        stopDelayMs={200}
-        height={3}
-        options={{ showSpinner: false }}
-      />
+      <NextNprogress color="#29D" startPosition={0.3} stopDelayMs={200} height={3} options={{ showSpinner: false }} />
 
       {(showAuthModal || showConfirmationModal) && <Overlay />}
       <AuthModal />

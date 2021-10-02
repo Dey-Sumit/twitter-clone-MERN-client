@@ -1,17 +1,16 @@
 TODO :
 
-tsconfig path mapping : import directly from @components using the index file
-improve auth process | should be faster
-improve Tweet Box HashTags
-next lint
-BUGS :
-get posts by user id
-too many api requests
-change deduping
-add skeletons
-profile update failed with 200!(no profile pic change)
-error on localhost 3000 notifications
-notifications page loading screen
+SWEET MODAL
+FONT FOR RESPONSIVE
+FIX Image
+FIX NOTIFICATIONS
+FIX OPTIMISTIC UI
+ADD DUMMY DATA in login page
+Add github links in sidebar
+twitter logo larger
+add rate limiter
+add splash screen
+TODO session for prod and dev
 
 ### Important links
 

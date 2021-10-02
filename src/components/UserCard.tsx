@@ -45,7 +45,7 @@ const UserCard: FunctionComponent<{
   const { push } = useRouter();
   return (
     <div
-      className="flex items-center px-3 py-1 cursor-pointer"
+      className="flex items-center px-3 py-1 text-sm cursor-pointer md:text-base"
       onClick={() => push(`/user/${user._id}`)}
       key={user._id}
     >
