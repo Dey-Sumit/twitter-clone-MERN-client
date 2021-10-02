@@ -3,7 +3,6 @@ import Sidebar from "./Sidebar";
 import NextNprogress from "nextjs-progressbar";
 import { useLayoutState } from "@context/layout.context";
 import Overlay from "./Overlay";
-import ConfirmationModal from "./modals/ConfirmationModal";
 import AuthModal from "./modals/AuthModal";
 import { useAuthState } from "@context/auth.context";
 import SplashScreen from "./layouts/SplashScreen";
@@ -19,7 +18,6 @@ const Layout = ({ children }) => {
       {(showAuthModal || showConfirmationModal) && <Overlay />}
       <AuthModal />
 
-      <ConfirmationModal />
       <Sidebar />
       <div className="flex-1">
         <Navbar />
