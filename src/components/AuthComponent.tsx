@@ -83,7 +83,7 @@ const AuthComponent = () => {
       </form>
 
       {isLogin && (
-        <p className="w-full p-1 mt-2 text-lg text-center text-yellow-400 border border-yellow-300">
+        <p className="w-full p-1 mt-2 text-lg text-center rounded-xl bg-yellow-100 border-yellow-600 text-yellow-600 border ">
           Dummy Data
           <br /> username : koder {" | "}password : 123456
         </p>
@@ -91,11 +91,11 @@ const AuthComponent = () => {
 
       <p className="p-1 text-center text-red-600 ">{errorMessage}</p>
 
-      <p className="text-lg tracking-wide text-center text-white">
+      <p className="text-lg tracking-wide text-center text-white border border-dark-400 px-6 py-2 rounded-full">
         {!isLogin ? "Already a member?" : "Don't have an account yet?"}
-        <span className="cursor-pointer" onClick={() => setIsLogin(!isLogin)}>
+        <button className="cursor-pointer pl-2" onClick={() => setIsLogin(!isLogin)}>
           {!isLogin ? " Sign In" : " Sign Up"}
-        </span>
+        </button>
       </p>
     </div>
   );

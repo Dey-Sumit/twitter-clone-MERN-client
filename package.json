@@ -1,6 +1,6 @@
 {
   "name": "client",
-  "version": "0.1.0",
+  "version": "1.0.1",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -34,7 +34,6 @@
     "yup": "^0.32.9"
   },
   "devDependencies": {
-    "@tailwindcss/jit": "^0.1.18",
     "@types/faker": "^6.6.9",
     "@types/js-cookie": "^3.0.1",
     "@types/node": "^17.0.13",
