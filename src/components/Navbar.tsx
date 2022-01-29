@@ -123,8 +123,11 @@ const Navbar = () => {
 
       {!user ? (
         // <div className="flex space-x-3">
-        <button onClick={() => push("/auth")} className="flex-shrink-0 p-1 text-blue-600 border border-blue-600">
-          Log in
+        <button
+          onClick={() => push("/auth")}
+          className="flex-shrink-0 bg-slate-700 rounded-full py-2 px-10 shadow hover:bg-slate-600"
+        >
+          LogIn / SignUp
         </button>
       ) : (
         // </div>

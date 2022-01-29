@@ -5,12 +5,11 @@ import { CreateComment, TweetCard, Trends, CommentCard } from "@components/index
 import { Post } from "@libs/types";
 import Loader from "@components/Loader";
 import { useAuthState } from "@context/auth.context";
+import NewOnTwitter from "@components/NewOnTwitter";
 
 const TweetPage = () => {
   const { user } = useAuthState();
-
   const router = useRouter();
-  const { push } = useRouter();
   const { tid } = router.query;
   const { data, error } = useSWR<Post>(tid ? `/api/posts/${tid}` : null);
 
@@ -29,16 +28,7 @@ const TweetPage = () => {
         ) : (
           <>
             <TweetCard tweet={data} />
-            {user ? (
-              <CreateComment tid={tid?.toString()} tweetedBy={data.user._id}/>
-            ) : (
-              <div className="p-3 text-center">
-                <p>Sign in to talk to the world 😉</p>
-                <button onClick={() => push("/auth")} className="button">
-                  Sign up / Sign in
-                </button>
-              </div>
-            )}
+            {user ? <CreateComment tid={tid?.toString()} tweetedBy={data.user._id} /> : <NewOnTwitter />}
             <div className="pl-14">
               {data.comments?.map((comment) => (
                 <CommentCard key={comment._id} data={comment} />

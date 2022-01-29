@@ -11,11 +11,13 @@ import React, { useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useEffect } from "react";
 import TweetSkeleton from "@components/skeletons/TweetSkeleton";
+import NewOnTwitter from "@components/NewOnTwitter";
 export default function Home() {
   const { push } = useRouter();
 
   const { user } = useAuthState();
   const { error, posts, page, setPage, isReachingEnd, isValidating } = usePaginatedPosts("/api/posts/feed");
+  console.log({ posts });
 
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
@@ -26,27 +28,18 @@ export default function Home() {
     <div className="grid grid-cols-8 gap-x-8 ">
       <div className="col-span-8 md:col-span-5">
         <div className="h-[90vh] overflow-y-auto">
-          {user ? (
-            <CreateTweet />
-          ) : (
-            <div className="p-3 text-center">
-              <p>Sign in to talk to the world 😉</p>
-              <button onClick={() => push("/auth")} className="mx-auto mt-3 button">
-                Sign up / Sign in
-              </button>
-            </div>
-          )}
+          {user ? <CreateTweet /> : <NewOnTwitter />}
           {!posts && isValidating && [...Array(10)].map((_, i) => <TweetSkeleton key={i} />)}
 
           {error && <h3 className="customText-h3">Could not load the post, Retrying</h3>}
           {user?.following.length === 0 && <h3 className="customText-h3">Tweets You might like!</h3>}
-          {user && !isValidating && (
+          {!isValidating && (
             <InfiniteScroll
               dataLength={posts.length}
               next={() => setPage(page + 1)}
               hasMore={!isReachingEnd}
               loader={mounted && <Loader />}
-              endMessage={mounted && !error && <p className="customText-h3">No more posts</p>}
+              // endMessage={mounted && !error && <p className="customText-h3">No more posts</p>}
             >
               {posts?.map((tweet) => (
                 <TweetCard tweet={tweet} key={tweet._id.toString()} />
