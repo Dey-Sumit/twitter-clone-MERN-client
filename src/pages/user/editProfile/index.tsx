@@ -63,10 +63,7 @@ const EditProfile: NextPage<{ user: User }> = ({ user }) => {
   return (
     <div className="grid grid-cols-8 gap-8 py-4">
       <div className="col-span-12 p-2">
-        <form
-          className="flex flex-col w-full mx-auto mt-5 space-y-3 md:w-6/12"
-          onSubmit={handleSubmit(onSubmit)}
-        >
+        <form className="flex flex-col w-full mx-auto mt-5 space-y-3 md:w-6/12" onSubmit={handleSubmit(onSubmit)}>
           <h1 className="textCustom-h3">Edit Profile</h1>
 
           <div className="relative">
@@ -74,9 +71,7 @@ const EditProfile: NextPage<{ user: User }> = ({ user }) => {
             {/* eslint-disable-next-line */}
             <img
               src={
-                watch("profilePicture")?.[0]
-                  ? URL.createObjectURL(watch("profilePicture")?.[0])
-                  : user?.profilePicture
+                watch("profilePicture")?.[0] ? URL.createObjectURL(watch("profilePicture")?.[0]) : user?.profilePicture
               }
               alt="profile picture"
               className="w-40 h-40 mx-auto border rounded-full border-3 inset-1/2"
@@ -115,10 +110,7 @@ const EditProfile: NextPage<{ user: User }> = ({ user }) => {
               error={errors.username}
             />
           </div>
-          <button
-            type="submit"
-            className="border border-blue-600 button hover:bg-transparent hover:text-blue-600"
-          >
+          <button type="submit" className="border border-blue-600 button hover:bg-transparent hover:text-blue-600">
             {isUpdating ? "Updating" : "Update Profile"}
           </button>
         </form>
@@ -130,26 +122,23 @@ const EditProfile: NextPage<{ user: User }> = ({ user }) => {
 export default EditProfile;
 // TODO make this function reusable
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  try {
-    const cookie = context.req.headers.cookie;
+  const cookie = context.req.headers.cookie;
+  const authCookie = readCookie(cookie);
 
-    if (!cookie) throw new Error("Missing auth token cookie");
+  // it returns 401 if the user is not authenticated
+  const { data: user } = await axios.get(`${process.env.API_BASE_ENDPOINT}/api/auth/me`, {
+    headers: { cookie: authCookie },
+    withCredentials: true,
+  });
 
-    // it returns 401 if the user is not authenticated
-    const { data: user } = await axios.get(`${process.env.API_BASE_ENDPOINT}/api/auth/me`, {
-      headers: { cookie },
-      withCredentials: true,
-    });
-
-    return { props: { user } };
-  } catch (error) {
-    // console.log({ Error: error.message });
-
-    return {
-      redirect: {
-        destination: "/auth",
-        statusCode: 302,
-      },
-    };
-  }
+  return { props: { user } };
 }
+const readCookie = (cookie: string) => {
+  let cookieArray = cookie.split("; " || ";");
+  return cookieArray.find((cookie) => {
+    const [key, _] = cookie.split("=");
+    return key.trim() == "connect.sid";
+  });
+};
+
+// https://stackoverflow.com/questions/69754258/passing-variables-from-middleware-to-page-in-next-js-12-new-middleware-api

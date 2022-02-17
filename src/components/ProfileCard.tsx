@@ -142,7 +142,7 @@ const ProfileCard: FunctionComponent<{ profileData: User }> = ({ profileData }) 
       </div>
       {profileData && authUser?._id === profileData?._id && (
         <div className="flex flex-col mt-2 space-y-2">
-          <Link href="/user/edit">
+          <Link href="/user/editProfile">
             <a>
               <div className="flex items-center justify-center p-2 space-x-2 border rounded-sm cursor-pointer border-dark-400">
                 <MdSettings /> <span>Edit Profile</span>
