@@ -125,7 +125,7 @@ const Navbar = () => {
         // <div className="flex space-x-3">
         <button
           onClick={() => push("/auth")}
-          className="flex-shrink-0 bg-slate-700 rounded-full py-2 px-10 shadow hover:bg-slate-600"
+          className="flex-shrink-0 bg-dark-700 rounded-full py-2 px-10 shadow hover:bg-dark-600"
         >
           LogIn / SignUp
         </button>
