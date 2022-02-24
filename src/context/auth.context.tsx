@@ -50,14 +50,12 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     async function loadUser() {
-      //console.log(Cookies.get("connect.sid"));
-
       try {
         // set initially from cookie
-        dispatch({
+        /*  dispatch({
           type: "SET_USER",
           payload: Cookies.get("user") ? JSON.parse(Cookies.get("user")) : null,
-        });
+        }); */
         const res = await axios.get("/api/auth/me");
 
         dispatch({

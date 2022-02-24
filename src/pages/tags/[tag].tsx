@@ -17,7 +17,6 @@ const TagPage = () => {
   } = useRouter();
 
   const { data } = useSWR<IData>(tag ? `/api/tags/${tag}` : null);
-  console.log({ data });
 
   if (data?.posts?.length === 0) {
     return <h3 className="textCustom-h3">{`There are no posts under ${tag}`}</h3>;

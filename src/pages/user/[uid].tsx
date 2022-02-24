@@ -22,11 +22,9 @@ const Profile = (props) => {
     query: { uid },
   } = useRouter();
   // const profileDataError = false;
-  // console.log({ profileData });
 
   // if (isFallback) {
   // }
-  // console.log({ profileData, isFallback });
   // const { data: profileData, error: profileDataError } = useSWR<User>(
   //   uid ? `/api/users/${uid}` : null
   // );
@@ -44,9 +42,7 @@ const Profile = (props) => {
     }
     setCurrentTab(value);
   };
-  const { posts, page, setPage, isReachingEnd } = usePaginatedPosts(
-    uid ? `/api/posts?uid=${uid}` : null
-  );
+  const { posts, page, setPage, isReachingEnd } = usePaginatedPosts(uid ? `/api/posts?uid=${uid}` : null);
 
   const { data: following } = useSWR<User[]>(uid ? `/api/users/${uid}/followings` : null);
 
@@ -111,7 +107,7 @@ const Profile = (props) => {
             ) : followers.length === 0 ? (
               <h1 className="customText-h3">You don't have any followers</h1>
             ) : (
-              followers.map((user) => <UserCard user={user} showFollowButton={true} key={user._id}/>)
+              followers.map((user) => <UserCard user={user} showFollowButton={true} key={user._id} />)
             ))}
 
           {currentTab === "following" &&
@@ -120,7 +116,7 @@ const Profile = (props) => {
             ) : following.length === 0 ? (
               <h1 className="customText-h3">You are not following anyone</h1>
             ) : (
-              following.map((user) => <UserCard user={user} showFollowButton={true} key={user._id}/>)
+              following.map((user) => <UserCard user={user} showFollowButton={true} key={user._id} />)
             ))}
         </div>
       </div>

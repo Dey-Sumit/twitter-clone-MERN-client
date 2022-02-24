@@ -36,8 +36,6 @@ export const SocketProvider = ({ children }) => {
         });
         unreadNotificationMutate();
         allNotificationMutate();
-
-        //console.log("notify received", temp_socket.id, data);
       });
     }
 

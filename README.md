@@ -56,3 +56,6 @@ Youtube Channel: [https://www.youtube.com/c/BackbenchCoder](https://www.youtube.
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
+
+Issue in twitter clone
+On refresh the /me call is not occurring. So , the user is getting logged out automatically , but every alternate req is happening.
