@@ -11,6 +11,7 @@ export const usePaginatedPosts = (URL: string) => {
     isValidating,
   } = useSWRInfinite<PaginatedPosts>((index) => {
     //? HACK to pass multiple q params
+    // TODO : there are better ways
     let newURL = `${URL}?page=${index}`;
     newURL = URL.replaceAll("?", "&");
     newURL = newURL.replace("&", "?");
