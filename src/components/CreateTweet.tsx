@@ -67,7 +67,7 @@ const CreateTweet: FunctionComponent<{}> = () => {
         data: formData,
       });
 
-      enqueueSnackbar("Tweet Created Successfully", {
+      enqueueSnackbar("Tweet Created!", {
         autoHideDuration: 1000,
       });
       paginatedPostsMutate();

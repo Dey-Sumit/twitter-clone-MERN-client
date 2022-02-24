@@ -1,7 +1,6 @@
 module.exports = {
-  mode: "jit",
-  purge: ["./src/**/*.tsx"],
-  darkMode: false, // or 'media' or 'class'
+  content: ["./src/**/*.tsx"],
+
   theme: {
     extend: {
       colors: {
@@ -11,9 +10,6 @@ module.exports = {
           500: "#3B424C",
           600: "#303741",
           700: "#272E38",
-        },
-        blue: {
-          light: "#2563eb42",
         },
       },
     },

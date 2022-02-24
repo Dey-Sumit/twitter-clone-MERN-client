@@ -11,7 +11,7 @@
 
 @layer components {
   .navItem {
-    @apply flex items-center justify-center px-3 py-2 space-x-2 font-semibold rounded-full cursor-pointer hover:text-white sm:justify-start hover:bg-blue-light;
+    @apply flex items-center justify-center px-4 py-2 space-x-2 font-semibold rounded-full cursor-pointer hover:text-white sm:justify-start hover:bg-dark-700;
   }
   .button {
     @apply flex items-center justify-center p-2 text-lg font-bold text-white bg-blue-700 rounded-md focus:outline-none;
