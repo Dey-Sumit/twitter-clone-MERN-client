@@ -63,10 +63,7 @@ const EditProfile: NextPage<{ user: User }> = ({ user }) => {
   return (
     <div className="grid grid-cols-8 gap-8 py-4">
       <div className="col-span-12 p-2">
-        <form
-          className="flex flex-col w-full mx-auto mt-5 space-y-3 md:w-6/12"
-          onSubmit={handleSubmit(onSubmit)}
-        >
+        <form className="flex flex-col w-full mx-auto mt-5 space-y-3 md:w-6/12" onSubmit={handleSubmit(onSubmit)}>
           <h1 className="textCustom-h3">Edit Profile</h1>
 
           <div className="relative">
@@ -74,9 +71,7 @@ const EditProfile: NextPage<{ user: User }> = ({ user }) => {
             {/* eslint-disable-next-line */}
             <img
               src={
-                watch("profilePicture")?.[0]
-                  ? URL.createObjectURL(watch("profilePicture")?.[0])
-                  : user?.profilePicture
+                watch("profilePicture")?.[0] ? URL.createObjectURL(watch("profilePicture")?.[0]) : user?.profilePicture
               }
               alt="profile picture"
               className="w-40 h-40 mx-auto border rounded-full border-3 inset-1/2"
@@ -103,8 +98,9 @@ const EditProfile: NextPage<{ user: User }> = ({ user }) => {
               fieldName="bio"
               label="Bio"
               defaultValue={user?.bio}
-              placeholder="bio"
+              placeholder="All this time, I thought I wanted a job. Turns out, I just wanted a paycheck"
               error={errors.bio}
+              isTypedTextarea
             />
             <Input
               register={register}
@@ -115,10 +111,7 @@ const EditProfile: NextPage<{ user: User }> = ({ user }) => {
               error={errors.username}
             />
           </div>
-          <button
-            type="submit"
-            className="border border-blue-600 button hover:bg-transparent hover:text-blue-600"
-          >
+          <button type="submit" className="border border-blue-600 button hover:bg-transparent hover:text-blue-600">
             {isUpdating ? "Updating" : "Update Profile"}
           </button>
         </form>

@@ -9,7 +9,7 @@ import { useRouter } from "next/router";
 
 import { Post } from "@libs/types";
 import timeSince from "@libs/timeSince";
-import { usePaginatedPosts } from "@libs/hooks";
+// import { usePaginatedPosts } from "@libs/hooks";
 import { useAuthState } from "@context/auth.context";
 import { useLayoutDispatch } from "@context/layout.context";
 import { useSocket } from "@context/socket.context";
@@ -57,7 +57,7 @@ const TweetCard: FunctionComponent<{ tweet: Post }> = ({
 
   const { user } = useAuthState();
   const dispatch = useLayoutDispatch();
-  const { mutate: paginatedPostsMutate } = usePaginatedPosts("/api/posts/feed");
+  // const { mutate: paginatedPostsMutate } = usePaginatedPosts("/api/posts/feed");
 
   const { push } = useRouter();
   const [likesCount, setLikesCount] = useState<number>(likes ? likes.length : 0);
@@ -100,7 +100,7 @@ const TweetCard: FunctionComponent<{ tweet: Post }> = ({
       if (data.isConfirmed) {
         try {
           await axios.delete(`/api/posts/${_id}/`);
-          paginatedPostsMutate();
+          //  paginatedPostsMutate();
 
           if (pathname === "/tweet/[tid]") {
             push("/");

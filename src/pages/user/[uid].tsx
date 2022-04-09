@@ -42,7 +42,13 @@ const Profile = (props) => {
     }
     setCurrentTab(value);
   };
-  const { posts, page, setPage, isReachingEnd } = usePaginatedPosts(uid ? `/api/posts?uid=${uid}` : null);
+  const {
+    paginatedData: posts,
+    page,
+    setPage,
+    isValidating,
+    isReachedEnd,
+  } = usePaginatedPosts(uid ? `/api/posts?uid=${uid}` : null);
 
   const { data: following } = useSWR<User[]>(uid ? `/api/users/${uid}/followings` : null);
 
@@ -82,7 +88,7 @@ const Profile = (props) => {
             Followings
           </span>
         </div>
-        <div className="max-h-screen p-2 overflow-y-auto">
+        <div id="scrollableDiv" className="max-h-screen p-2 overflow-y-auto">
           {currentTab === "posts" &&
             (posts?.length === 0 ? (
               <h3 className="customText-h3">no post in this profile </h3>
@@ -90,14 +96,14 @@ const Profile = (props) => {
               <InfiniteScroll
                 dataLength={posts.length} //This is important field to render the next data
                 next={() => setPage(page + 1)}
-                hasMore={!isReachingEnd}
-                loader={<Loader />}
+                hasMore={!isReachedEnd}
+                loader={isValidating && <Loader />}
                 endMessage={<p className="customText-h3">No More Posts</p>}
+                scrollableTarget="scrollableDiv"
               >
                 {posts?.map((tweet, i) => (
                   <TweetCard tweet={tweet} key={i} />
                 ))}
-                {/* key={tweet._id.toString()}  */}
               </InfiniteScroll>
             ))}
 

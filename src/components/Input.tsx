@@ -11,16 +11,25 @@ const Input: FunctionComponent<{
   id?: string;
   placeholder?: string;
   defaultValue?: string;
-}> = ({ register, fieldName, label, error, type, ...rest }) => {
+  isTypedTextarea?: boolean;
+}> = ({ register, fieldName, label, error, type, isTypedTextarea, ...rest }) => {
   return (
     <div className={classNames("flex flex-col w-full space-y-1", { hidden: type === "file" })}>
       <span className="text-lg">{label}</span>
-      <input
-        type={type}
-        {...rest}
-        {...register(fieldName)}
-        className="p-1 rounded-md bg-dark-400 focus:outline-none"
-      />
+      {!isTypedTextarea ? (
+        <input
+          type={type}
+          {...rest}
+          {...register(fieldName)}
+          className="p-1 px-4 rounded-md bg-dark-400 focus:outline-none"
+        />
+      ) : (
+        <textarea
+          {...rest}
+          {...register(fieldName)}
+          className="p-1 px-4 rounded-md bg-dark-400 focus:outline-none h-20"
+        />
+      )}
 
       <p className="m-0 mt-1 text-red-600">{error?.message}</p>
     </div>

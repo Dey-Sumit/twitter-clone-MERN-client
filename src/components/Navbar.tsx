@@ -67,7 +67,10 @@ const Navbar = () => {
         onClick={() => dispatch({ type: "TOGGLE_NAVBAR" })}
       />
       {/* search bar */}
-      <div className="relative flex items-center justify-center w-full px-3 py-1 space-x-3 md:w-2/3 bg-dark-700">
+      <div
+        className="relative flex items-center justify-center w-full px-3 py-1 space-x-3 md:w-2/3 bg-dark-700"
+        onBlur={() => setShowDropDown(false)}
+      >
         <BiSearchAlt />
         <input
           type="text"

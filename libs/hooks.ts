@@ -1,7 +1,15 @@
-import useSWRInfinite from "swr/infinite";
-import { PaginatedPosts, Post } from "./types";
+import useSWRInfinite, { SWRInfiniteConfiguration } from "swr/infinite";
+import { Post } from "./types";
 
-export const usePaginatedPosts = (URL: string) => {
+export const usePaginatedPosts = (url: string, config?: SWRInfiniteConfiguration) => {
+  // generate SWR KEY
+  const getKey = (pageIndex: number) => {
+    //? HACK to pass multiple q params
+    let newURL = `${url}?page=${pageIndex}`;
+    newURL = url.replaceAll("?", "&").replace("&", "?");
+    return newURL;
+  };
+
   const {
     data,
     error,
@@ -9,25 +17,21 @@ export const usePaginatedPosts = (URL: string) => {
     size: page,
     setSize: setPage,
     isValidating,
-  } = useSWRInfinite<PaginatedPosts>((index) => {
-    //? HACK to pass multiple q params
-    // TODO : there are better ways
-    let newURL = `${URL}?page=${index}`;
-    newURL = URL.replaceAll("?", "&");
-    newURL = newURL.replace("&", "?");
-    return newURL;
-  });
+  } = useSWRInfinite<{
+    posts: Post[];
+    page: number;
+    pages: number;
+  }>(getKey, config);
 
-  const posts: Post[] = data ? [].concat(...data.map((paginatedPost) => paginatedPost.posts)) : [];
-
-  const isReachingEnd = !isValidating && data?.[data.length - 1].page === data?.[data.length - 1].pages;
+  const isReachedEnd = !isValidating && data?.[data.length - 1].page === data?.[data.length - 1].pages;
+  const paginatedData = data?.map((data) => data.posts).flat() || [];
 
   return {
     error,
-    posts,
+    paginatedData,
     page,
     setPage,
-    isReachingEnd,
+    isReachedEnd,
     mutate,
     isValidating,
   };
