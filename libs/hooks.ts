@@ -5,9 +5,8 @@ export const usePaginatedPosts = (url: string, config?: SWRInfiniteConfiguration
   // generate SWR KEY
   const getKey = (pageIndex: number) => {
     //? HACK to pass multiple q params
-    let newURL = `${url}?page=${pageIndex}`;
-    newURL = url.replaceAll("?", "&").replace("&", "?");
-    return newURL;
+    let newUrl = `${url}?page=${pageIndex}`;
+    return newUrl.replaceAll("?", "&").replace("&", "?");
   };
 
   const {
