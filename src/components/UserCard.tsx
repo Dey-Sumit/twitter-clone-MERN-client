@@ -24,9 +24,8 @@ const UserCard: FunctionComponent<{
   const handleFollow = async (e: MouseEvent<any>) => {
     e.stopPropagation();
     if (loading) return;
-    // TODO fix this
-    const type = isFollowing ? "unfollow" : "follow";
-    const ENDPOINT = `/api/users/${user._id}/${type}`;
+
+    const ENDPOINT = `/api/users/${user._id}/follow`;
     try {
       setLoading(true);
       await axios.put(ENDPOINT);

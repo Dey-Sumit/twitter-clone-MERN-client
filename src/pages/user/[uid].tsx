@@ -61,11 +61,6 @@ const Profile = (props) => {
         {/* profile */}
         {!isFallback && !profileData && <Error text="Server Error on Profile  Data" />}
         {!isFallback ? <ProfileCard profileData={profileData} /> : <Loader />}
-        {/* {!profileDataError ? (
-            <ProfileCard profileData={profileData} />
-          ) : (
-            <Error text="Server Error on Profile  Data" />
-          )} */}
       </div>
       <div className="col-span-8 rounded-sm lg:col-span-5 bg-dark-500">
         <div className="flex px-4 py-2 space-x-4 shadow-lg ">
@@ -139,7 +134,7 @@ export const getStaticProps: GetStaticProps = async (ctx: GetStaticPropsContext)
 
     return {
       props: { user },
-      revalidate: 5,
+      revalidate: 100,
     };
   } catch (error) {
     return {
